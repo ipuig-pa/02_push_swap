@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/05 14:49:14 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:44:17 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,17 @@ int	is_valid_input(int argc, char **argv, int *arr)
 
 	i = 0;
 	j = 0;
-	while (i <= argc - 2)
+	if (argc <= 2)
+		return (0);
+	while (i + 1 < argc)
 	{
-		if (!is_int(argv[i]))
-		{
-			free(arr);
+		if (!is_int(argv[i + 1]))
 			return (0);
-		}
-		arr[i] = ft_atoi(argv[i]);
+		arr[i] = ft_atoi(argv[i + 1]);
 		while (j < i)
 		{
 			if (arr[i] == arr[j])
-			{
-				free(arr);
 				return (0);
-			}
 			j++;
 		}
 		i++;
@@ -64,7 +60,7 @@ int	is_int(char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		integer = integer * 10 + (*str - '0');
+		integer = integer * 10 + (str[i] - '0');
 		if (integer * sign > INT_MAX || integer * sign < INT_MIN)
 			return (0);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/05 14:50:44 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:44:16 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,31 @@
 
 //eliminar stdio.h, canviar printf per ft_printf
 
-
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
+	t_stack	*current;
 	int		*arr;
 
 	arr = (int *)malloc((argc - 1) * sizeof(int));
-	if (!arr || argc <= 2 || !is_valid_input(argc, argv, arr))
+	if (!arr || !is_valid_input(argc, argv, arr))
+	{
+		if (arr)
+			free(arr);
 		return (display_error());
-	printf("first check");
+	}
 	stack_a = parse_in_stack(argc, arr);
 	free(arr);
 	if (!stack_a)
 		return (display_error());
-	while (stack_a != NULL)
-	{
-		printf("%i, ", stack_a->content);
-		stack_a = stack_a->next;
-	}
-	//get_instructions(stack_a, argc - 1, 0, 0);
+	get_instructions(stack_a, argc - 1, 0, 0);
+	// current = stack_a;
+	// while (current != NULL)
+	// {
+	// 	printf("%i, ", current->content);
+	// 	current = current->next;
+	// }
+	// clear_stack(stack_a);
 	return (0);
 }
 
@@ -50,7 +55,7 @@ t_stack	*parse_in_stack(int argc, int *arr)
 	stack_a->content = arr[0];
 	i = 1;
 	current = stack_a;
-	while (i < argc - 2)
+	while (i + 1 < argc)
 	{
 		new = (t_stack *)malloc(sizeof(t_stack));
 		if (!new)
