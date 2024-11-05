@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/05 15:44:17 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:16:53 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,16 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (integer * sign);
+}
+
+t_stack	*ft_lstlast(t_stack *stack)
+{
+	t_stack	*current;
+
+	if (!stack)
+		return (NULL);
+	current = stack;
+	while (current->next != NULL)
+		current = current->next;
+	return (current);
 }

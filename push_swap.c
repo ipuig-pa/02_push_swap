@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/05 15:44:16 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:13:32 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	free(arr);
 	if (!stack_a)
 		return (display_error());
-	get_instructions(stack_a, argc - 1, 0, 0);
+	get_instructions(stack_a, stack_a);
 	// current = stack_a;
 	// while (current != NULL)
 	// {
@@ -69,89 +69,119 @@ t_stack	*parse_in_stack(int argc, int *arr)
 	return (stack_a);
 }
 
-// void	get_instructions(int *arr_a, int a_length, int curr_a, int b_length)
-// {
-// 	int	i;
-// 	int	first_a;
-// 	int	last_a;
+void	get_instructions(t_stack *stack_top, t_stack *current)
+{
+	t_stack	*current;
+	t_stack	*bottom;
+	int		size;
+	int		node_pos;
 
-// 	i = 0;
-// 	fist_a = 0;
-// 	last_a = length - 1;
-// 	if (arr_a[curr_a] > arr_a[curr_a + 1])
-// 	{
-// 		if (arr_a[first_a] > arr_a[last_a])
-// 		{
-// 			if (curr_a + 1 > length / 2)
-// 			{
-// 				while (i <= curr_a)
-// 				{
-// 					ra;
-// 					d-alguna manera ha de quedar registrat que l-ultim de l-array ara es diferent
-// 					i++;
-// 				}
-// 			}
-// 			else
-// 			{
-// 				while (i <= curr_a)
-// 				{
-// 					rra;
-// 					d-alguna manera ha de quedar registrat que l-ultim de l-array ara es diferent
-// 					i++;
-// 				}
-// 			}
-// 		}
-// 		else
-// 		{
-// 			//mirar si es mes alt que el del pilo B i si cal correr el pilo B, cap amunt o cap avall
-// 			if (curr_a)
-// 			while (i < curr_a)
-// 			{
-// 				pb;
-// 				b_length++;
-// 				i++;
-// 			}
-// 			sa;
-// 		}
-// 	}
-// 	if (curr_a < length - 1)
-// 		get_instructions(arr_a, length, curr_a + 1, b_length);
-// 	else
-// 	{
-// 		while (b_length > 0)
-// 		{
-// 			pa;
-// 			i++;
-// 		}
-// 	}
-// }
+	current = stack_top;
+	if (current->content > (current->next)->content)
+	{
+		stack_bottom = ft_lstlast(stack_top);
+		size = ft_lstsize(stack_top);
+		node_position = ft_lstpos(current);
+		if (stack_top->conent > stack_bottom->content)
+		{
+			//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
+			if (node_position < size / 2)
+			{
+				while (node_position >= 1)
+				{
+					ra(stack_top);
+					node_position--;
+				}
+			}
+			else
+			{
+				while (node_position < size)
+				{
+					rra(stack_top);
+					node_position++;
+				}
+			}
+		}
+		else
+		{
+			//mirar si es mes alt que el del pilo B i si cal correr el pilo B, cap amunt o cap avall
+			if (curr_a)
+			//mirar si cal posar coses anteriors a B? --> tot el que queda per sobre del conflictiu
+			while (i < curr_a)
+			{
+				pb;
+				b_length++;
+				//cada vegada que passi algun a B he de tornar a fer l-algoritme de B per mirar si s-han de reordenar a B (ordenar a la inversa de A)
+				i++;
+			}
+			stack_top = swap(stack_top, a);
+		}
+	}
+	if (current < size)
+		get_instructions(stack_top, current);
+	else
+	{
+		while (b_length > 0)
+		{
+			pa;
+			i++;
+		}
+	}
+	return (stack_top)
+}
 
-// void	swap(char	stack)
-// {
-// 	if (stack == 'a' || stack == 's')
+t_stack	*swap(t_stack	*stack_top, char c)
+{
+	t_stack *temp;
 
-// 	if (stack == 'b' || stack == 's')
+	//posar d-alguna manera segons si c es a, b o s. 
+	temp = stack_top->next;
+	stack_top->next = stack_top->next->next;
+	temp->next = stack_top;
+	stack_top = temp;
+	printf("s%c\n", c);
+	return (stack_top);
+}
 
-// }
 
-// void	push(char	stack)
-// {
-// 	if (stack == 'a')
+	return (stack_top)
+	
+	if (stack == 'a')
+	{
+		
+		printf("sa");
+	}
+	else if (stack == 'b')
+	{
+		printf("sb");
+	}
+	else
+	{
+		printf("ss")
+	}
+}
 
-// 	else if (stack == 'b')
-// }
-// void	rotate(char	stack)
-// {
-// 	if (stack == 'a' || stack == 'r')
+t_stack	*push(t_stack *stack_top)
+{
+	//addatstart of B node stack_top
+	
 
-// 	if (stack == 'b' || stack == 'r')
+	if (stack == 'a')
 
-// }
+	else if (stack == 'b')
+}
+void	rotate(char	stack)
+{
+	if (stack == 'a' || stack == 'r')
 
-// void	reverse_rotate(char	stack)
-// {
-// 	if (stack == 'a' || stack == 'r')
+	if (stack == 'b' || stack == 'r')
 
-// 	if (stack == 'b' || stack == 'r')
+}
 
-// }
+void	reverse_rotate(char	stack)
+{
+	if (stack == 'a' || stack == 'r')
+
+	if (stack == 'b' || stack == 'r')
+
+}
