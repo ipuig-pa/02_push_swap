@@ -6,8 +6,9 @@ SOURCES =
 OBJECTS = $(SOURCES: .c=.o)
 HEADER = push_swap.h
 
+//libft make!!!!!
 
-all : $(NAME)
+all : $(NAME) $(LIBFT)
 
 $(NAME) : $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
