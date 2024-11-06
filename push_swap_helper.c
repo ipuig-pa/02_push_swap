@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/05 16:16:53 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/06 09:29:56 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	is_valid_input(int argc, char **argv, int *arr)
 	int	j;
 
 	i = 0;
-	j = 0;
 	if (argc <= 2)
 		return (0);
 	while (i + 1 < argc)
@@ -32,6 +31,7 @@ int	is_valid_input(int argc, char **argv, int *arr)
 		if (!is_int(argv[i + 1]))
 			return (0);
 		arr[i] = ft_atoi(argv[i + 1]);
+		j = 0;
 		while (j < i)
 		{
 			if (arr[i] == arr[j])
@@ -109,14 +109,3 @@ int	ft_atoi(const char *str)
 	return (integer * sign);
 }
 
-t_stack	*ft_lstlast(t_stack *stack)
-{
-	t_stack	*current;
-
-	if (!stack)
-		return (NULL);
-	current = stack;
-	while (current->next != NULL)
-		current = current->next;
-	return (current);
-}
