@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/06 12:54:51 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:02:17 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_stack	*clear_stack(t_stack *stack);
 
 int		main(int argc, char **argv);
 t_stack	*parse_in_stack(int argc, int *arr);
-void	sort_stack_a(t_stack **stack_top, t_stack **st_a, t_stack **st_b);
-void	sort_stack_b(t_stack **stack_top, t_stack **st_a, t_stack **st_b);
+void	sort_stack_a(t_stack **st_a, t_stack **st_b);
+void	sort_stack_b(t_stack **st_a, t_stack **st_b);
 void	exec_and_print(char *command, t_stack **st_a, t_stack **st_b);
 
 void	swap(t_stack **stack);

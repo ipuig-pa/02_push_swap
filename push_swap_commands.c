@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:10:03 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/06 12:43:30 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:41:22 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	swap(t_stack **stack)
 	*stack = temp;
 }
 
-void	push(t_stack **stack_source, t_stack **stack_destination)
+void	push(t_stack **stack_destination, t_stack **stack_source)
 {
 	t_stack	*temp;
 
