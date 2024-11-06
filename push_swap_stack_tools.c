@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:17:55 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/06 12:43:28 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:18:55 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_lstpos(t_stack *current, t_stack *interrogated)
 	int	position;
 
 	position = 1;
-	while (current == interrogated)
+	while (current != interrogated)
 	{
 		position++;
 		current = current->next;
