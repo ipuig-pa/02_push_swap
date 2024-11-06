@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/06 16:54:02 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:28:37 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,16 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 					node_pos--;
 				}
 				exec_and_print("sa", st_a, st_b);
+				current = current->next;
 			}
 		}
-		current = current->next;
+		else
+			current = current->next;
 	}
 	while (*st_b != NULL)
 	{
 		exec_and_print("pa", st_a, st_b);
+		sort_stack_a(st_a, st_b);
 	}
 }
 
@@ -186,5 +189,6 @@ void	exec_and_print(char *command, t_stack **st_a, t_stack **st_b)
 	else if (command[0] == 's')
 		swap(stack);
 	write (1, command, command_len);
-	//falta la part de printar
+	write (1, "\n", 1);
+	//falta la part de printar(que ajunti sa i sb, ra i rb, etc. i fer servir ft_printf en lloc de printf)
 }
