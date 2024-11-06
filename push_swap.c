@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/05 18:13:32 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:55:35 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
+	t_stack	*stack_b;
 	t_stack	*current;
 	int		*arr;
 
@@ -28,17 +29,18 @@ int	main(int argc, char **argv)
 		return (display_error());
 	}
 	stack_a = parse_in_stack(argc, arr);
+	stack_b = NULL;
 	free(arr);
 	if (!stack_a)
 		return (display_error());
-	get_instructions(stack_a, stack_a);
-	// current = stack_a;
-	// while (current != NULL)
-	// {
-	// 	printf("%i, ", current->content);
-	// 	current = current->next;
-	// }
-	// clear_stack(stack_a);
+	sort_stack_a(&stack_a, &stack_a, &stack_b);
+	current = stack_a;
+	while (current != NULL)
+	{
+		printf("%i/n", current->content);
+		current = current->next;
+	}
+	clear_stack(stack_a);
 	return (0);
 }
 
@@ -69,119 +71,114 @@ t_stack	*parse_in_stack(int argc, int *arr)
 	return (stack_a);
 }
 
-void	get_instructions(t_stack *stack_top, t_stack *current)
+void	sort_stack_a(t_stack **stack_top, t_stack **st_a, t_stack **st_b)
 {
 	t_stack	*current;
 	t_stack	*bottom;
 	int		size;
 	int		node_pos;
+	int		flag;
 
-	current = stack_top;
-	if (current->content > (current->next)->content)
+	current = *stack_top;
+	if (current->content > current->next->content)
 	{
-		stack_bottom = ft_lstlast(stack_top);
-		size = ft_lstsize(stack_top);
-		node_position = ft_lstpos(current);
-		if (stack_top->conent > stack_bottom->content)
+		bottom = ft_lstlast(*stack_top);
+		size = ft_lstsize(*stack_top);
+		node_pos = ft_lstpos(*stack_top, current);
+		if ((*stack_top)->content > bottom->content)
 		{
 			//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
-			if (node_position < size / 2)
+			if (node_pos < size / 2)
 			{
-				while (node_position >= 1)
+				while (node_pos >= 1)
 				{
-					ra(stack_top);
-					node_position--;
+					exec_and_print("ra", st_a, st_b);
+					node_pos--;
 				}
 			}
 			else
 			{
-				while (node_position < size)
+				while (node_pos < size)
 				{
-					rra(stack_top);
-					node_position++;
+					exec_and_print("rra", st_a, st_b);
+					node_pos++;
 				}
 			}
 		}
 		else
 		{
-			//mirar si es mes alt que el del pilo B i si cal correr el pilo B, cap amunt o cap avall
-			if (curr_a)
-			//mirar si cal posar coses anteriors a B? --> tot el que queda per sobre del conflictiu
-			while (i < curr_a)
+			flag = 0;
+			if (*st_b != NULL && (*stack_top)->content > (*st_b)->content)
+				flag = 1;
+			while (node_pos > 1)
 			{
-				pb;
-				b_length++;
-				//cada vegada que passi algun a B he de tornar a fer l-algoritme de B per mirar si s-han de reordenar a B (ordenar a la inversa de A)
-				i++;
+				exec_and_print("pb", st_a, st_b);
+				if (flag == 1)
+					sort_stack_b(st_b, st_a, st_b);
+				node_pos--;
 			}
-			stack_top = swap(stack_top, a);
+			exec_and_print("sa", st_a, st_b);
 		}
 	}
-	if (current < size)
-		get_instructions(stack_top, current);
+	if (current->next != NULL)
+		sort_stack_a(st_a, st_a, st_b);
 	else
 	{
-		while (b_length > 0)
-		{
-			pa;
-			i++;
-		}
+		while (st_b != NULL)
+			exec_and_print("pa", st_a, st_b);
 	}
-	return (stack_top)
 }
 
-t_stack	*swap(t_stack	*stack_top, char c)
+void	sort_stack_b(t_stack **stack_top, t_stack **st_a, t_stack **st_b)
 {
-	t_stack *temp;
+	t_stack	*bottom;
+	int		size;
 
-	//posar d-alguna manera segons si c es a, b o s. 
-	temp = stack_top->next;
-	stack_top->next = stack_top->next->next;
-	temp->next = stack_top;
-	stack_top = temp;
-	printf("s%c\n", c);
-	return (stack_top);
-}
-
-
-	return (stack_top)
-	
-	if (stack == 'a')
-	{
-		
-		printf("sa");
-	}
-	else if (stack == 'b')
-	{
-		printf("sb");
-	}
+	if ((*stack_top)->content > (*stack_top)->next->content)
+		return ;
+	bottom = ft_lstlast(*stack_top);
+	size = ft_lstsize(*stack_top);
+	if (size == 2)
+		exec_and_print("jokerb", st_a, st_b);
+	if ((*stack_top)->content < bottom->content)
+		exec_and_print("rb", st_a, st_b);
+	else if ((*stack_top)->content > (*stack_top)->next->content)
+		exec_and_print("sb", st_a, st_b);
 	else
+		printf("Creia que no es donaria aquesta condicio");
+}
+
+// void print(void)
+// {
+// 	read ();
+// 	cada 2 ordres mirar si pot agrupar-les
+// }
+
+void	exec_and_print(char *command, t_stack **st_a, t_stack **st_b)
+{
+	char	stack_id;
+	t_stack	**stack;
+	int		command_len;
+
+	command_len = ft_strlen(command);
+	stack_id = command[command_len - 1];
+	if (stack_id == 'a')
+		stack = st_a;
+	else if (stack_id == 'b')
+		stack = st_b;
+	if (command_len >= 3)
+		reverse_rotate(stack);
+	else if (command[0] == 'r')
+		rotate(stack);
+	else if (command[0] == 'p')
 	{
-		printf("ss")
+		if (stack == st_a)
+			push(stack, st_b);
+		else
+			push(stack, st_a);
 	}
-}
-
-t_stack	*push(t_stack *stack_top)
-{
-	//addatstart of B node stack_top
-	
-
-	if (stack == 'a')
-
-	else if (stack == 'b')
-}
-void	rotate(char	stack)
-{
-	if (stack == 'a' || stack == 'r')
-
-	if (stack == 'b' || stack == 'r')
-
-}
-
-void	reverse_rotate(char	stack)
-{
-	if (stack == 'a' || stack == 'r')
-
-	if (stack == 'b' || stack == 'r')
-
+	else if (command[0] == 's')
+		swap(stack);
+	write (1, command, command_len);
+	//falta la part de printars
 }

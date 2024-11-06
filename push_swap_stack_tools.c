@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:17:55 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/05 16:39:25 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:43:28 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_lstsize(t_stack *stack)
 	t_stack	*current;
 
 	size = 0;
-	current = lst;
+	current = stack;
 	while (current != NULL)
 	{
 		size++;
@@ -50,4 +50,19 @@ int	ft_lstpos(t_stack *current, t_stack *interrogated)
 		current = current->next;
 	}
 	return (position);
+}
+
+t_stack	*clear_stack(t_stack *stack)
+{
+	t_stack	*current;
+	t_stack	*next;
+
+	current = stack;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	return (NULL);
 }

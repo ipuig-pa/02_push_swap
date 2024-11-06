@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/06 09:29:56 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:43:31 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,6 @@ int	is_int(char *str)
 	return (1);
 }
 
-t_stack	*clear_stack(t_stack *stack)
-{
-	t_stack	*current;
-	t_stack	*next;
-
-	current = stack;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	return (NULL);
-}
-
 //eliminar ft_atoi d-aqui si es posa a libft
 int	ft_atoi(const char *str)
 {
@@ -109,3 +94,13 @@ int	ft_atoi(const char *str)
 	return (integer * sign);
 }
 
+//eliminar strlen d-aqui
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len] != '\0')
+		len++;
+	return (len);
+}
