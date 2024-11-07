@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/07 11:33:31 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:37:49 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,10 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			size = ft_lstsize(*st_a);
 			node_pos = ft_lstpos(*st_a, current);
 			current = current->next;
+			if (size == 2)
+				exec_and_print("jokera", st_a, st_b);
 			if ((*st_a)->content > bottom->content)
 			{
-				//afegir joker a
 				//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
 				if (node_pos < size / 2)
 				{
