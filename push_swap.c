@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/07 11:04:15 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:33:31 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,10 @@ void	sort_stack_b(t_stack **st_a, t_stack **st_b)
 		exec_and_print("jokerb", st_a, st_b);
 	else if ((*st_b)->content < bottom->content)
 		exec_and_print("rb", st_a, st_b);
-	else if ((*st_b)->content > (*st_b)->next->content)
+	else if ((*st_b)->content < (*st_b)->next->content)
 		exec_and_print("sb", st_a, st_b);
 	else
-		printf("Creia que no es donaria aquesta condicio");
+		printf("Creia que no es donaria aquesta condicio\n");
 }
 
 // void print(void)
