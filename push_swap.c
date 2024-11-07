@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/06 17:28:37 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:04:15 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			current = current->next;
 			if ((*st_a)->content > bottom->content)
 			{
+				//afegir joker a
 				//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
 				if (node_pos < size / 2)
 				{
@@ -113,7 +114,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			else
 			{
 				flag = 0;
-				if ((*st_b != NULL && (*st_a)->content > (*st_b)->content))
+				if ((*st_b != NULL && (*st_a)->content < (*st_b)->content))
 					flag = 1;
 				while (node_pos > 1)
 				{
@@ -147,7 +148,7 @@ void	sort_stack_b(t_stack **st_a, t_stack **st_b)
 	size = ft_lstsize(*st_b);
 	if (size == 2)
 		exec_and_print("jokerb", st_a, st_b);
-	if ((*st_b)->content < bottom->content)
+	else if ((*st_b)->content < bottom->content)
 		exec_and_print("rb", st_a, st_b);
 	else if ((*st_b)->content > (*st_b)->next->content)
 		exec_and_print("sb", st_a, st_b);
