@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/07 11:37:49 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:24:27 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ int	main(int argc, char **argv)
 		return (display_error());
 	stack_b = NULL;
 	sort_stack_a(&stack_a, &stack_b);
+	current = stack_a;
+	//checker
+	if (stack_b == NULL)
+	{
+		current = stack_a;
+		while (current->next != NULL)
+		{
+			if (current->content > current->next->content)
+				printf("KO\n");
+			current = current->next;
+		}
+		printf("OK\n");
+	}
+	//visual checking
 	current = stack_a;
 	while (current != NULL)
 	{
