@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 15:55:15 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:17:06 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,253 +17,147 @@
 
 int	main(int argc, char **argv)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	t_stack	*current;
-	int		*arr;
+	int		*st_a;
+	int		*st_b;
+	int		i;
 
-	arr = (int *)malloc((argc - 1) * sizeof(int));
-	if (!arr || !is_valid_input(argc, argv, arr))
+	st_a = (int *)malloc((argc - 1) * sizeof(int));
+	st_b = (int *)malloc((argc - 1) * sizeof(int));
+	if (!st_a || !st_b || !create_array(argc, argv, st_a))
 	{
-		if (arr)
-			free(arr);
+		if (st_a)
+			free(st_a);
+		if (st_b)
+			free(st_b);
 		return (display_error());
 	}
-	stack_a = parse_in_stack(argc, arr);
-	free(arr);
-	if (!stack_a)
-		return (display_error());
-	stack_b = NULL;
-	sort_stack_a(&stack_a, &stack_b);
-	current = stack_a;
+	sort_stack_a(st_a, st_b, argc - 1, 0);
 	//checker
-	if (stack_b == NULL)
-	{
-		current = stack_a;
-		while (current->next != NULL)
-		{
-			if (current->content > current->next->content)
-				printf("KO\n");
-			current = current->next;
-		}
-		printf("OK\n");
-	}
+	// if (b_size == 0)
+	// {
+	// 	i = 0;
+	// 	while (i <= argc - 1)
+	// 	{
+	// 		if (st_a[i] > st_a[i + 1])
+	// 			printf("KO\n");
+	// 		i++;
+	// 	}
+	// 	printf("OK\n");
+	// }
 	//visual checking
-	current = stack_a;
-	while (current != NULL)
+	i = 0;
+	while (i <= argc - 2)
 	{
-		printf("%i\n", current->content);
-		current = current->next;
+		printf("%i\n", st_a[i]);
+		i++;
 	}
-	clear_stack(stack_a);
+	free(st_a);
+	free(st_b);
 	return (0);
 }
 
-t_stack	*parse_in_stack(int argc, int *arr)
+void	sort_stack_a(int *st_a, int *st_b, int a_size, int b_size)
 {
-	t_stack	*stack_a;
-	t_stack	*current;
-	t_stack	*new;
-	int		i;
+	int	i;
+	int	flag;
+	int	j;
 
-	stack_a = (t_stack *)malloc(sizeof(t_stack));
-	if (!stack_a)
-		return (NULL);
-	stack_a->content = arr[0];
-	i = 1;
-	current = stack_a;
-	while (i + 1 < argc)
+	i = 0;
+	while (i < a_size - 1)
 	{
-		new = (t_stack *)malloc(sizeof(t_stack));
-		if (!new)
-			return (clear_stack(stack_a));
-		new->content = arr[i];
-		current->next = new;
-		current = new;
-		i++;
-	}
-	current->next = NULL;
-	return (stack_a);
-}
-
-void	sort_stack_a(t_stack **st_a, t_stack **st_b)
-{
-	t_stack	*current;
-	t_stack	*bottom;
-	int		size;
-	int		node_pos;
-	int		flag;
-
-	if (!st_a || !*st_a || !(*st_a)->next)
-		return ;
-	current = *st_a;
-	if ((*st_a)->content > bottom->content)
-		
-//buscar index del min i del max
-	while (current->next != NULL)
-	{
-		if (current->content > current->next->content)
+		if (st_a[i] > st_a[i + 1])
 		{
-			bottom = ft_lstlast(*st_a);
-			size = ft_lstsize(*st_a);
-			node_pos = ft_lstpos(*st_a, current);
-			current = current->next;
-			if (size == 2)
-				exec_and_print("joker", 'a', st_a, st_b);
-			if ((*st_a)->content > bottom->content)
+			if (a_size == 2)
+				exec_and_print("joker", 'a', st_a, st_b, a_size, b_size);
+			if (st_a[0] > st_a[a_size - 1])
 			{
-				//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
-				if (node_pos <= size / 2)
+				if (i <= a_size / 2)
 				{
-					while (node_pos >= 1)
+					while (i >= 0)
 					{
-						exec_and_print("r", 'a', st_a, st_b);
-						node_pos--;
+						exec_and_print("r", 'a', st_a, st_b, a_size, b_size);
+						i--;
 					}
 				}
 				else
 				{
-					while (node_pos < size)
+					while (i < (a_size - 1))
 					{
-						exec_and_print("rr", 'a', st_a, st_b);
-						node_pos++;
+						exec_and_print("rr", 'a', st_a, st_b, a_size, b_size);
+						i++;
 					}
 				}
 			}
-			else if (node_pos > size / 2)
+			else if (i > a_size / 2)
 			{
-				while (node_pos <= size)
+				while (i <= a_size)
 				{
-					exec_and_print("rr", 'a', st_a, st_b);
-					node_pos++;
+					exec_and_print("rr", 'a', st_a, st_b, a_size, b_size);
+					i++;
 				}
-				exec_and_print("s", 'a', st_a, st_b);
-				sort_stack_a(st_a, st_b);
+				exec_and_print("s", 'a', st_a, st_b, a_size, b_size);
+				sort_stack_a(st_a, st_b, a_size, b_size);
 			}
 			else
 			{
 				flag = 0;
-				if ((*st_b != NULL && (*st_a)->content < (*st_b)->content))
+				if (b_size == 0 && st_a[0] < st_b[0])
 					flag = 1;
-				while (node_pos > 1)
+				while (i > 0)
 				{
-					exec_and_print("p", 'b', st_a, st_b);
-					node_pos--;
+					exec_and_print("p", 'b', st_a, st_b, a_size, b_size);
+					a_size = a_size - 1;
+					b_size = b_size + 1;
+					i--;
 				}
 				if (flag == 1)
-					sort_stack_b(st_a, st_b);
-				exec_and_print("s", 'a', st_a, st_b);
-				current = current->next;
+					sort_stack_b(st_a, st_b, a_size, b_size);
+				exec_and_print("s", 'a', st_a, st_b, a_size, b_size);
+				i++;
 			}
 		}
 		else
-			current = current->next;
+			i++;
+		j = 0;
+		while (j <= a_size - 1)
+		{
+			printf("%i: %i\n", j, st_a[j]);
+			j++;
+		}
 	}
-	while (*st_b != NULL)
+	printf("b_size: %i\n", b_size);
+	while (b_size != 0)
 	{
-		exec_and_print("p", 'a', st_a, st_b);
-		sort_stack_a(st_a, st_b);
+		printf("b_size: %i\n", b_size);
+		exec_and_print("p", 'a', st_a, st_b, a_size, b_size);
+		a_size = a_size + 1;
+		b_size = b_size - 1;
+		//problemes amb aquesta recursivitat!!!!!
+		sort_stack_a(st_a, st_b, a_size, b_size);
 	}
+	printf("end\n");
 	//com fer que printi l'ultima de manera m'es elegant que aix[o que repeteix exec_and_print 2 vegades en va.] potser fer des d-aquesta funcio la variable estatica de previous_command?
-	exec_and_print("last", 'a', st_a, st_b);
+	exec_and_print("last", 'a', st_a, st_b, a_size, b_size);
 }
 
-// void	sort_stack_b(t_stack **st_a, t_stack **st_b)
-// {
-// 	t_stack	*current;
-// 	t_stack	*bottom;
-// 	int		size;
-// 	int		node_pos;
-// 	int		flag;
-
-// 	if (!st_b || !*st_b || !(*st_b)->next)
-// 		return ;
-// 	current = *st_b;
-// 	while (current->next != NULL)
-// 	{
-// 		if (current->content < current->next->content)
-// 		{
-// 			bottom = ft_lstlast(*st_b);
-// 			size = ft_lstsize(*st_b);
-// 			node_pos = ft_lstpos(*st_b, current);
-// 			current = current->next;
-// 			if (size == 2)
-// 				exec_and_print("joker", 'b', st_a, st_b);
-// 			if ((*st_b)->content < bottom->content)
-// 			{
-// 				//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
-// 				if (node_pos <= size / 2)
-// 				{
-// 					while (node_pos >= 1)
-// 					{
-// 						exec_and_print("r", 'b', st_a, st_b);
-// 						node_pos--;
-// 					}
-// 				}
-// 				else
-// 				{
-// 					while (node_pos < size)
-// 					{
-// 						exec_and_print("rr", 'b', st_a, st_b);
-// 						node_pos++;
-// 					}
-// 				}
-// 			}
-// 			else if (node_pos > size / 2)
-// 			{
-// 				while (node_pos <= size)
-// 				{
-// 					exec_and_print("r", 'b', st_a, st_b);
-// 					node_pos++;
-// 				}
-// 				exec_and_print("s", 'b', st_a, st_b);
-// 				sort_stack_b(st_a, st_b);
-// 			}
-// 			else
-// 			{
-// 				flag = 0;
-// 				if ((*st_a != NULL && (*st_a)->content < (*st_b)->content))
-// 					flag = 1;
-// 				while (node_pos > 1)
-// 				{
-// 					exec_and_print("p", 'a', st_a, st_b);
-// 					node_pos--;
-// 				}
-// 				if (flag == 1)
-// 					sort_stack_a(st_a, st_b);
-// 				exec_and_print("s", 'b', st_a, st_b);
-// 				current = current->next;
-// 			}
-// 		}
-// 		else
-// 			current = current->next;
-// 	}
-// }
-
-
-void	sort_stack_b(t_stack **st_a, t_stack **st_b)
+void	sort_stack_b(int *st_a, int *st_b, int a_size, int b_size)
 {
-	t_stack	*bottom;
-	int		size;
-
-	if (!st_b || !*st_b || !(*st_b)->next)
-		return ;
-	bottom = ft_lstlast(*st_b);
-	size = ft_lstsize(*st_b);
-	if (size == 2)
-		exec_and_print("joker", 'b', st_a, st_b);
-	else if ((*st_b)->content < bottom->content)
-		exec_and_print("r", 'b', st_a, st_b);
-	else if ((*st_b)->content < (*st_b)->next->content)
-		exec_and_print("s", 'b', st_a, st_b);
+	if (b_size == 2)
+		exec_and_print("joker", 'b', st_a, st_b, a_size, b_size);
+	else if (st_b[0] < st_b[b_size - 1])
+		exec_and_print("r", 'b', st_a, st_b, a_size, b_size);
+	else if (st_b[0] < st_b[1])
+		exec_and_print("s", 'b', st_a, st_b, a_size, b_size);
 	else
 		printf("Creia que no es donaria aquesta condicio\n");
 }
 
-void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b)
+void	exec_and_print(char *command, char stack_id, int *st_a, int *st_b, int a_size, int b_size)
 {
-	t_stack		**stack;
-	t_stack		**other_stack;
+	int		*stack;
+	int		*other_stack;
+	int		size;
+	int		other_size;
 	static char	*previous_command;
 	static char	previous_id;
 
@@ -272,25 +166,28 @@ void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b
 		previous_command = print_command(previous_command, command, previous_id, 'a');
 		return ;
 	}
+	stack = st_a;
+	size = a_size;
 	other_stack = st_b;
-	if (stack_id == 'a')
-		stack = st_a;
-	else
+	other_size = b_size;
+	if (stack_id == 'b')
 	{
 		stack = st_b;
+		size = b_size;
 		other_stack = st_a;
+		other_size = a_size;
 	}
 	if (command[0] == 's' || command[0] == 'j')
 		swap(stack);
 	else if (command[0] == 'r')
 	{
 		if (command[1] == '\0')
-			rotate(stack);
+			rotate(stack, size);
 		else
-			reverse_rotate(stack);
+			reverse_rotate(stack, size);
 	}
 	else if (command[0] == 'p')
-		push(stack, other_stack);
+		push(stack, other_stack, size, other_size);
 	previous_command = print_command(previous_command, command, previous_id, stack_id);
 	previous_id = stack_id;
 }
@@ -325,7 +222,6 @@ char	*print_command (char *previous_command, char *command, char previous_id, ch
 		previous_command = command;
 	return (previous_command);
 }
-
 
 /*
 ./a.out -127 156 -67 92 -143 37 -82 198 -12 73 -195 113 -31 168 -96 22 -158 147 -52 83 -173 128 -6 191 -116 47 -137 162 -41 98 -184 133 -26 177 -91 58 -148 107 -61 88 -169 123 -16 187 -106 42 -132 152 -36 93 -179 118 -21 172 -86 53 -153 142 -46 78 -164 138 -11 182 -101 32 -146 157 -56 68 -189 143 -1 167 -111 27 -147 132 -71 63 -159 148 -76 197 -124 17 -122 137 -51 103 -174 134 -39 192 -81 12 -157 155 -34 108 | wc -l

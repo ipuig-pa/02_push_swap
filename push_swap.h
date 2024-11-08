@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 14:38:18 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:49:38 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,22 @@
 //# include "libft.h"
 //eliminar atoi i strlen daqui si es posa libft
 
-typedef struct s_stack
-{
-	int				content;
-	struct s_stack	*next;
-}	t_stack;
-
 int		display_error(void);
-int		is_valid_input(int argc, char **argv, int *arr);
+int		create_array(int argc, char **argv, int *arr);
 int		is_int(char *str);
 int		ft_atoi(const char *str);
 size_t	ft_strlen(const char *s);
 
-t_stack	*ft_lstlast(t_stack *stack);
-int		ft_lstsize(t_stack *stack);
-int		ft_lstpos(t_stack *current, t_stack *interrogated);
-t_stack	*clear_stack(t_stack *stack);
-
 int		main(int argc, char **argv);
-t_stack	*parse_in_stack(int argc, int *arr);
-void	sort_stack_a(t_stack **st_a, t_stack **st_b);
-void	sort_stack_b(t_stack **st_a, t_stack **st_b);
-void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b);
+void	sort_stack_a(int *st_a, int *st_b, int a_size, int b_size);
+void	sort_stack_b(int *st_a, int *st_b, int a_size, int b_size);
+void	exec_and_print(char *command, char stack_id, int *st_a, int *st_b, int a_size, int b_size);
 char	*print_command (char *previous_command, char *command, char previous_id, char stack_id);
 
-void	swap(t_stack **stack);
-void	push(t_stack **stack_source, t_stack **stack_destination);
-void	rotate(t_stack **stack);
-void	reverse_rotate(t_stack **stack);
+void	swap(int *stack);
+void	push(int *stack_destination, int *stack_source, int s_size, int d_size);
+void	rotate(int *stack, int size);
+void	reverse_rotate(int *stack, int size);
+void	push_index(int *stack, char c, int size);
 
 #endif

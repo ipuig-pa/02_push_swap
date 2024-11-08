@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 11:05:50 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:35:58 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	display_error(void)
 	return (1);
 }
 
-int	is_valid_input(int argc, char **argv, int *arr)
+int	create_array(int argc, char **argv, int *arr)
 {
 	int	i;
 	int	j;
