@@ -6,11 +6,12 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 12:43:53 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/08 15:55:15 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 //eliminar stdio.h, canviar printf per ft_printf
 
@@ -96,6 +97,9 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	if (!st_a || !*st_a || !(*st_a)->next)
 		return ;
 	current = *st_a;
+	if ((*st_a)->content > bottom->content)
+		
+//buscar index del min i del max
 	while (current->next != NULL)
 	{
 		if (current->content > current->next->content)
@@ -109,7 +113,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			if ((*st_a)->content > bottom->content)
 			{
 				//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
-				if (node_pos < size / 2)
+				if (node_pos <= size / 2)
 				{
 					while (node_pos >= 1)
 					{
@@ -126,6 +130,16 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 					}
 				}
 			}
+			else if (node_pos > size / 2)
+			{
+				while (node_pos <= size)
+				{
+					exec_and_print("rr", 'a', st_a, st_b);
+					node_pos++;
+				}
+				exec_and_print("s", 'a', st_a, st_b);
+				sort_stack_a(st_a, st_b);
+			}
 			else
 			{
 				flag = 0;
@@ -134,10 +148,10 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 				while (node_pos > 1)
 				{
 					exec_and_print("p", 'b', st_a, st_b);
-					if (flag == 1)
-						sort_stack_b(st_a, st_b);
 					node_pos--;
 				}
+				if (flag == 1)
+					sort_stack_b(st_a, st_b);
 				exec_and_print("s", 'a', st_a, st_b);
 				current = current->next;
 			}
@@ -153,6 +167,79 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	//com fer que printi l'ultima de manera m'es elegant que aix[o que repeteix exec_and_print 2 vegades en va.] potser fer des d-aquesta funcio la variable estatica de previous_command?
 	exec_and_print("last", 'a', st_a, st_b);
 }
+
+// void	sort_stack_b(t_stack **st_a, t_stack **st_b)
+// {
+// 	t_stack	*current;
+// 	t_stack	*bottom;
+// 	int		size;
+// 	int		node_pos;
+// 	int		flag;
+
+// 	if (!st_b || !*st_b || !(*st_b)->next)
+// 		return ;
+// 	current = *st_b;
+// 	while (current->next != NULL)
+// 	{
+// 		if (current->content < current->next->content)
+// 		{
+// 			bottom = ft_lstlast(*st_b);
+// 			size = ft_lstsize(*st_b);
+// 			node_pos = ft_lstpos(*st_b, current);
+// 			current = current->next;
+// 			if (size == 2)
+// 				exec_and_print("joker", 'b', st_a, st_b);
+// 			if ((*st_b)->content < bottom->content)
+// 			{
+// 				//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
+// 				if (node_pos <= size / 2)
+// 				{
+// 					while (node_pos >= 1)
+// 					{
+// 						exec_and_print("r", 'b', st_a, st_b);
+// 						node_pos--;
+// 					}
+// 				}
+// 				else
+// 				{
+// 					while (node_pos < size)
+// 					{
+// 						exec_and_print("rr", 'b', st_a, st_b);
+// 						node_pos++;
+// 					}
+// 				}
+// 			}
+// 			else if (node_pos > size / 2)
+// 			{
+// 				while (node_pos <= size)
+// 				{
+// 					exec_and_print("r", 'b', st_a, st_b);
+// 					node_pos++;
+// 				}
+// 				exec_and_print("s", 'b', st_a, st_b);
+// 				sort_stack_b(st_a, st_b);
+// 			}
+// 			else
+// 			{
+// 				flag = 0;
+// 				if ((*st_a != NULL && (*st_a)->content < (*st_b)->content))
+// 					flag = 1;
+// 				while (node_pos > 1)
+// 				{
+// 					exec_and_print("p", 'a', st_a, st_b);
+// 					node_pos--;
+// 				}
+// 				if (flag == 1)
+// 					sort_stack_a(st_a, st_b);
+// 				exec_and_print("s", 'b', st_a, st_b);
+// 				current = current->next;
+// 			}
+// 		}
+// 		else
+// 			current = current->next;
+// 	}
+// }
+
 
 void	sort_stack_b(t_stack **st_a, t_stack **st_b)
 {
@@ -238,3 +325,12 @@ char	*print_command (char *previous_command, char *command, char previous_id, ch
 		previous_command = command;
 	return (previous_command);
 }
+
+
+/*
+./a.out -127 156 -67 92 -143 37 -82 198 -12 73 -195 113 -31 168 -96 22 -158 147 -52 83 -173 128 -6 191 -116 47 -137 162 -41 98 -184 133 -26 177 -91 58 -148 107 -61 88 -169 123 -16 187 -106 42 -132 152 -36 93 -179 118 -21 172 -86 53 -153 142 -46 78 -164 138 -11 182 -101 32 -146 157 -56 68 -189 143 -1 167 -111 27 -147 132 -71 63 -159 148 -76 197 -124 17 -122 137 -51 103 -174 134 -39 192 -81 12 -157 155 -34 108 | wc -l
+primer algoritme: 5654
+incloent que faci rra si es mes de la meitat: 5010
+incloent que faci rra si es mes de la meitat + sort b nomes quan hagi acabat de push tots els d'a: 4989
+
+*/
