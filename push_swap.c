@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/07 12:24:27 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:43:53 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			node_pos = ft_lstpos(*st_a, current);
 			current = current->next;
 			if (size == 2)
-				exec_and_print("jokera", st_a, st_b);
+				exec_and_print("joker", 'a', st_a, st_b);
 			if ((*st_a)->content > bottom->content)
 			{
 				//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
@@ -113,7 +113,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 				{
 					while (node_pos >= 1)
 					{
-						exec_and_print("ra", st_a, st_b);
+						exec_and_print("r", 'a', st_a, st_b);
 						node_pos--;
 					}
 				}
@@ -121,7 +121,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 				{
 					while (node_pos < size)
 					{
-						exec_and_print("rra", st_a, st_b);
+						exec_and_print("rr", 'a', st_a, st_b);
 						node_pos++;
 					}
 				}
@@ -133,12 +133,12 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 					flag = 1;
 				while (node_pos > 1)
 				{
-					exec_and_print("pb", st_a, st_b);
+					exec_and_print("p", 'b', st_a, st_b);
 					if (flag == 1)
 						sort_stack_b(st_a, st_b);
 					node_pos--;
 				}
-				exec_and_print("sa", st_a, st_b);
+				exec_and_print("s", 'a', st_a, st_b);
 				current = current->next;
 			}
 		}
@@ -147,9 +147,11 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	}
 	while (*st_b != NULL)
 	{
-		exec_and_print("pa", st_a, st_b);
+		exec_and_print("p", 'a', st_a, st_b);
 		sort_stack_a(st_a, st_b);
 	}
+	//com fer que printi l'ultima de manera m'es elegant que aix[o que repeteix exec_and_print 2 vegades en va.] potser fer des d-aquesta funcio la variable estatica de previous_command?
+	exec_and_print("last", 'a', st_a, st_b);
 }
 
 void	sort_stack_b(t_stack **st_a, t_stack **st_b)
@@ -162,49 +164,77 @@ void	sort_stack_b(t_stack **st_a, t_stack **st_b)
 	bottom = ft_lstlast(*st_b);
 	size = ft_lstsize(*st_b);
 	if (size == 2)
-		exec_and_print("jokerb", st_a, st_b);
+		exec_and_print("joker", 'b', st_a, st_b);
 	else if ((*st_b)->content < bottom->content)
-		exec_and_print("rb", st_a, st_b);
+		exec_and_print("r", 'b', st_a, st_b);
 	else if ((*st_b)->content < (*st_b)->next->content)
-		exec_and_print("sb", st_a, st_b);
+		exec_and_print("s", 'b', st_a, st_b);
 	else
 		printf("Creia que no es donaria aquesta condicio\n");
 }
 
-// void print(void)
-// {
-// 	read ();
-// 	cada 2 ordres mirar si pot agrupar-les
-// }
-
-void	exec_and_print(char *command, t_stack **st_a, t_stack **st_b)
+void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b)
 {
-	char	stack_id;
-	t_stack	**stack;
-	int		command_len;
+	t_stack		**stack;
+	t_stack		**other_stack;
+	static char	*previous_command;
+	static char	previous_id;
 
-	command_len = ft_strlen(command);
-	stack_id = command[command_len - 1];
+	if (command[0] == 'l')
+	{
+		previous_command = print_command(previous_command, command, previous_id, 'a');
+		return ;
+	}
+	other_stack = st_b;
 	if (stack_id == 'a')
 		stack = st_a;
-	else if (stack_id == 'b')
-		stack = st_b;
 	else
-		return ;
-	if (command_len >= 3)
-		reverse_rotate(stack);
-	else if (command[0] == 'r')
-		rotate(stack);
-	else if (command[0] == 'p')
 	{
-		if (stack_id == 'a')
-			push(stack, st_b);
-		else
-			push(stack, st_a);
+		stack = st_b;
+		other_stack = st_a;
 	}
-	else if (command[0] == 's')
+	if (command[0] == 's' || command[0] == 'j')
 		swap(stack);
-	write (1, command, command_len);
+	else if (command[0] == 'r')
+	{
+		if (command[1] == '\0')
+			rotate(stack);
+		else
+			reverse_rotate(stack);
+	}
+	else if (command[0] == 'p')
+		push(stack, other_stack);
+	previous_command = print_command(previous_command, command, previous_id, stack_id);
+	previous_id = stack_id;
+}
+
+char	*print_command (char *previous_command, char *command, char previous_id, char stack_id)
+{
+	int	joined_commands;
+
+	if (!previous_command || previous_command[0] == 'l')
+		return (command);
+	joined_commands = 0;
+	if (previous_command[0] == command[0] || previous_command[0] == 'j' || command[0] == 'j')
+	{
+		if (stack_id != previous_id)
+		{
+			joined_commands = 1;
+			if (previous_command[0] == 'j')
+			{
+				if (command[0] != 'j')
+					previous_command = command;
+				else
+					previous_command = "s";
+			}
+		}
+	}
+	write (1, previous_command, ft_strlen(previous_command));
+	write (1, &previous_id, 1);
 	write (1, "\n", 1);
-	//falta la part de printar(que ajunti sa i sb, ra i rb, etc. i fer servir ft_printf en lloc de printf)
+	if (joined_commands == 1)
+		previous_command = NULL;
+	else
+		previous_command = command;
+	return (previous_command);
 }
