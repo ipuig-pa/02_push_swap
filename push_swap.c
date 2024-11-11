@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/11 10:43:09 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:09:02 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(int argc, char **argv)
 			free(st_b);
 		return (display_error());
 	}
-	sort_stack_a(st_a, st_b, argc - 1, 0);
+	if (!a_is_in_order(st_a, argc - 1))
+		sort_stack_a(st_a, st_b, argc - 1, 0);
 	//checker
 	// if (b_size == 0)
 	// {
@@ -48,7 +49,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i <= argc - 2)
 	{
-		printf("%i\n", st_a[i]);
+		printf("%d\n", st_a[i]);
 		i++;
 	}
 	free(st_a);
@@ -62,15 +63,15 @@ void	sort_stack_a(int *st_a, int *st_b, int a_size, int b_size)
 	int	flag;
 
 	i = 0;
-	while (i < a_size - 1)
+	while (i < (a_size - 2))
 	{
 		if (st_a[i] > st_a[i + 1])
-		{
+
 			if (a_size == 2)
 				exec_and_print("joker", 'a', st_a, st_b, a_size, b_size);
-			if (st_a[0] > st_a[a_size - 1])
+			else if (st_a[0] > st_a[a_size - 1])
 			{
-				if (i <= a_size / 2)
+				if (i < a_size / 2)
 				{
 					while (i >= 0)
 					{
@@ -86,48 +87,68 @@ void	sort_stack_a(int *st_a, int *st_b, int a_size, int b_size)
 						i++;
 					}
 				}
+				i = -1;
 			}
-			else if (i > a_size / 2)
+			else if (i >= a_size / 2)
 			{
-				while (i <= a_size)
+				while (i < a_size - 1)
 				{
 					exec_and_print("rr", 'a', st_a, st_b, a_size, b_size);
 					i++;
 				}
-				exec_and_print("s", 'a', st_a, st_b, a_size, b_size);
-				i = 0;
+				i = -1;
 			}
 			else
 			{
-				flag = 0;
-				if (b_size == 0 && st_a[0] < st_b[0])
-					flag = 1;
-				while (i > 0)
+				if ((i == 0) || (i == 1 && st_a[0] < st_a[2]))
+					exec_and_print("s", 'a', st_a, st_b, a_size, b_size);
+				else
 				{
-					exec_and_print("p", 'b', st_a, st_b, a_size, b_size);
-					a_size = a_size - 1;
-					b_size = b_size + 1;
-					i--;
+					flag = 0;
+					if (b_size != 0 && st_a[0] < st_b[0])
+						flag = 1;
+					while (i >= 0)
+					{
+						exec_and_print("p", 'b', st_a, st_b, a_size, b_size);
+						a_size--;
+						b_size++;
+						i--;
+					}
+					if (flag == 1)
+						sort_stack_b(st_a, st_b, a_size, b_size);
+					i = -1;
 				}
-				if (flag == 1)
-					sort_stack_b(st_a, st_b, a_size, b_size);
-				exec_and_print("s", 'a', st_a, st_b, a_size, b_size);
-				i++;
 			}
 		}
-		else
-			i++;
+		i++;
 	}
+	// j = 0;
+	// while (j <= b_size - 1)
+	// {
+	// 	printf("b.%i: %i\n", j, st_b[j]);
+	// 	j++;
+	// }
+	// j = 0;
+	// while (j <= a_size - 1)
+	// {
+	// 	printf("a.%i: %i\n", j, st_a[j]);
+	// 	j++;
+	// }
 	while (b_size != 0)
 	{
+		//afegir aquesta condici'o
+		while (st_a[i] < st_b[0])
+			i++; 
+		if (i < size / 2)
+			rotate fins que toqui entrar
 		exec_and_print("p", 'a', st_a, st_b, a_size, b_size);
-		a_size = a_size + 1;
-		b_size = b_size - 1;
+		a_size++;
+		b_size--;
 	}
 	if (!a_is_in_order(st_a, a_size))
 		sort_stack_a(st_a, st_b, a_size, b_size);
 	//com fer que printi l'ultima de manera m'es elegant que aix[o que repeteix exec_and_print 2 vegades en va.] potser fer des d-aquesta funcio la variable estatica de previous_command?
-	exec_and_print("last", 'a', st_a, st_b, a_size, b_size);
+	exec_and_print("last", 'b', st_a, st_b, a_size, b_size);
 }
 
 int	a_is_in_order(int *stack, int size)
@@ -167,7 +188,7 @@ void	exec_and_print(char *command, char stack_id, int *st_a, int *st_b, int a_si
 
 	if (command[0] == 'l')
 	{
-		previous_command = print_command(previous_command, command, previous_id, 'a');
+		previous_command = print_command(previous_command, command, previous_id, 'b');
 		return ;
 	}
 	stack = st_a;
@@ -210,7 +231,7 @@ char	*print_command (char *previous_command, char *command, char previous_id, ch
 			joined_commands = 1;
 			if (previous_command[0] == 'j')
 			{
-				if (command[0] != 'j')
+				if (command[0] != 'j' && command[0] != 'l')
 					previous_command = command;
 				else
 					previous_command = "s";
