@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 15:55:15 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:29:40 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int	main(int argc, char **argv)
 		while (current->next != NULL)
 		{
 			if (current->content > current->next->content)
+			{
 				printf("KO\n");
+				break ;
+			}
 			current = current->next;
 		}
 		printf("OK\n");
@@ -97,9 +100,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	if (!st_a || !*st_a || !(*st_a)->next)
 		return ;
 	current = *st_a;
-	if ((*st_a)->content > bottom->content)
-		
-//buscar index del min i del max
+//	if ((*st_a)->content > bottom->content)
 	while (current->next != NULL)
 	{
 		if (current->content > current->next->content)
@@ -161,11 +162,44 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	}
 	while (*st_b != NULL)
 	{
+		current = *st_a;
+		printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
+		if ((*st_a)->content < (ft_lstlast(*st_a))->content)
+		{
+			//buscar en aquest cas quina seria la posicio
+		}
+		if (!((*st_b)->content < current->content && (*st_b)->content < (ft_lstlast(*st_a))->content))
+		{
+			while ((*st_b)->content > current->content)
+			{
+				current = current->next;
+				printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
+			}
+		}
+		node_pos = ft_lstpos(*st_a, current) - 1;
+		printf("num: %i, node: %i\n", (*st_b)->content, node_pos);
+		if (node_pos <= size / 2)
+		{
+			while (node_pos >= 1)
+			{
+				exec_and_print("r", 'a', st_a, st_b);
+				node_pos--;
+			}
+		}
+		else
+		{
+			while (node_pos < size)
+			{
+				exec_and_print("rr", 'a', st_a, st_b);
+				node_pos++;
+			}
+		}
 		exec_and_print("p", 'a', st_a, st_b);
-		sort_stack_a(st_a, st_b);
 	}
+	// if (!is_order(*st_a))
+	// 	sort_stack_a(st_a, st_b);
 	//com fer que printi l'ultima de manera m'es elegant que aix[o que repeteix exec_and_print 2 vegades en va.] potser fer des d-aquesta funcio la variable estatica de previous_command?
-	exec_and_print("last", 'a', st_a, st_b);
+	exec_and_print("last", 'b', st_a, st_b);
 }
 
 // void	sort_stack_b(t_stack **st_a, t_stack **st_b)

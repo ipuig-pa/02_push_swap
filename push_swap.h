@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 14:38:18 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:36:26 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_stack	*ft_lstlast(t_stack *stack);
 int		ft_lstsize(t_stack *stack);
 int		ft_lstpos(t_stack *current, t_stack *interrogated);
 t_stack	*clear_stack(t_stack *stack);
+int		is_order(t_stack *stack);
 
 int		main(int argc, char **argv);
 t_stack	*parse_in_stack(int argc, int *arr);

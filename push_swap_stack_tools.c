@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:17:55 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/06 16:18:55 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:36:59 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,18 @@ t_stack	*clear_stack(t_stack *stack)
 		current = next;
 	}
 	return (NULL);
+}
+
+int	is_order(t_stack *stack)
+{
+	t_stack	*current;
+
+	current = stack;
+	while (current->next != NULL)
+	{
+		if (current->content > current->next->content)
+			return (0);
+		current = current->next;
+	}
+	return (1);
 }
