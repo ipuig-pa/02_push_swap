@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/11 16:29:40 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:32:34 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	int		size;
 	int		node_pos;
 	int		flag;
+	//int		j;
+	int		flag2;
 
 	if (!st_a || !*st_a || !(*st_a)->next)
 		return ;
@@ -160,44 +162,88 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 		else
 			current = current->next;
 	}
+	//j = 0;
+	//while (j <= 15)
 	while (*st_b != NULL)
 	{
 		current = *st_a;
-		printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
-		if ((*st_a)->content < (ft_lstlast(*st_a))->content)
+		//printf("b: %i, a: %i, current: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
+		if (is_order(*st_a))
 		{
-			//buscar en aquest cas quina seria la posicio
-		}
-		if (!((*st_b)->content < current->content && (*st_b)->content < (ft_lstlast(*st_a))->content))
-		{
-			while ((*st_b)->content > current->content)
+			printf("mark1\n");
+			while ((*st_b)->content > current->content && current->next != NULL)
 			{
 				current = current->next;
-				printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
+				//printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
 			}
-		}
-		node_pos = ft_lstpos(*st_a, current) - 1;
-		printf("num: %i, node: %i\n", (*st_b)->content, node_pos);
-		if (node_pos <= size / 2)
-		{
-			while (node_pos >= 1)
-			{
-				exec_and_print("r", 'a', st_a, st_b);
-				node_pos--;
-			}
+			node_pos = ft_lstpos(*st_a, current);
+			if (current ->next == NULL)
+				node_pos++;
 		}
 		else
 		{
-			while (node_pos < size)
+			//printf("mark2\n");
+			flag2 = 0;
+			if ((*st_b)->content < current->content)
 			{
-				exec_and_print("rr", 'a', st_a, st_b);
-				node_pos++;
+				//printf("mark2.1\n");
+				while ((current->next != NULL) && (*st_b)->content < current->content)
+					current = current->next;
+				if (current->next == NULL && (*st_b)->content < current->content)
+					flag2 = 1;
+				while ((current->next != NULL) && (*st_b)->content > current->content)
+					current = current->next;
+				if (current->next == NULL && (*st_b)->content > current->content)
+					flag2 = 1;
+				node_pos = ft_lstpos(*st_a, current);
+			}
+			else
+			{
+				//printf("mark2.2\n");
+				while ((current->next != NULL) && (*st_b)->content > current->content)
+					current = current->next;
+				if (current->next == NULL && (*st_b)->content > current->content)
+					flag2 = 1;
+				node_pos = ft_lstpos(*st_a, current);
+			}
+			if (flag2 == 1)
+			{
+				//printf("mark2.3\n");
+				current = *st_a;
+				while (current->content < current->next->content)
+				{
+					current = current->next;
+					//printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
+				}
+				node_pos = ft_lstpos(*st_a, current) + 1;
+			}
+		}
+		size = ft_lstsize(*st_a);
+		//printf("num: %i, node: %i, size: %i\n", (*st_b)->content, node_pos, size);		
+		if (node_pos != 1)
+		{
+			if (node_pos <= size / 2)
+			{
+				while (node_pos > 1)
+				{
+					exec_and_print("r", 'a', st_a, st_b);
+					node_pos--;
+				}
+			}
+			else
+			{
+				while (node_pos <= size)
+				{
+					exec_and_print("rr", 'a', st_a, st_b);
+					node_pos++;
+				}
 			}
 		}
 		exec_and_print("p", 'a', st_a, st_b);
+		//j++;
 	}
-	// if (!is_order(*st_a))
-	// 	sort_stack_a(st_a, st_b);
+	if (!is_order(*st_a))
+		sort_stack_a(st_a, st_b);
 	//com fer que printi l'ultima de manera m'es elegant que aix[o que repeteix exec_and_print 2 vegades en va.] potser fer des d-aquesta funcio la variable estatica de previous_command?
 	exec_and_print("last", 'b', st_a, st_b);
 }
@@ -366,5 +412,6 @@ char	*print_command (char *previous_command, char *command, char previous_id, ch
 primer algoritme: 5654
 incloent que faci rra si es mes de la meitat: 5010
 incloent que faci rra si es mes de la meitat + sort b nomes quan hagi acabat de push tots els d'a: 4989
+collocant al lloc on toca cada numero abans de "pa": 1971
 
 */
