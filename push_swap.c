@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 19:17:06 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:43:09 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	sort_stack_a(int *st_a, int *st_b, int a_size, int b_size)
 {
 	int	i;
 	int	flag;
-	int	j;
 
 	i = 0;
 	while (i < a_size - 1)
@@ -96,7 +95,7 @@ void	sort_stack_a(int *st_a, int *st_b, int a_size, int b_size)
 					i++;
 				}
 				exec_and_print("s", 'a', st_a, st_b, a_size, b_size);
-				sort_stack_a(st_a, st_b, a_size, b_size);
+				i = 0;
 			}
 			else
 			{
@@ -118,26 +117,31 @@ void	sort_stack_a(int *st_a, int *st_b, int a_size, int b_size)
 		}
 		else
 			i++;
-		j = 0;
-		while (j <= a_size - 1)
-		{
-			printf("%i: %i\n", j, st_a[j]);
-			j++;
-		}
 	}
-	printf("b_size: %i\n", b_size);
 	while (b_size != 0)
 	{
-		printf("b_size: %i\n", b_size);
 		exec_and_print("p", 'a', st_a, st_b, a_size, b_size);
 		a_size = a_size + 1;
 		b_size = b_size - 1;
-		//problemes amb aquesta recursivitat!!!!!
-		sort_stack_a(st_a, st_b, a_size, b_size);
 	}
-	printf("end\n");
+	if (!a_is_in_order(st_a, a_size))
+		sort_stack_a(st_a, st_b, a_size, b_size);
 	//com fer que printi l'ultima de manera m'es elegant que aix[o que repeteix exec_and_print 2 vegades en va.] potser fer des d-aquesta funcio la variable estatica de previous_command?
 	exec_and_print("last", 'a', st_a, st_b, a_size, b_size);
+}
+
+int	a_is_in_order(int *stack, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		if (stack[i] > stack[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	sort_stack_b(int *st_a, int *st_b, int a_size, int b_size)

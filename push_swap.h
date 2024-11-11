@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 18:49:38 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:38:20 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	sort_stack_b(int *st_a, int *st_b, int a_size, int b_size);
 void	exec_and_print(char *command, char stack_id, int *st_a, int *st_b, int a_size, int b_size);
 char	*print_command (char *previous_command, char *command, char previous_id, char stack_id);
 
+int		a_is_in_order(int *stack, int size);
 void	swap(int *stack);
 void	push(int *stack_destination, int *stack_source, int s_size, int d_size);
 void	rotate(int *stack, int size);
