@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/11 18:32:34 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:17:53 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	main(int argc, char **argv)
 	if (!stack_a)
 		return (display_error());
 	stack_b = NULL;
-	sort_stack_a(&stack_a, &stack_b);
+	if (!is_order(stack_a))
+		sort_stack_a(&stack_a, &stack_b);
 	current = stack_a;
 	//checker
 	if (stack_b == NULL)
@@ -102,7 +103,6 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	if (!st_a || !*st_a || !(*st_a)->next)
 		return ;
 	current = *st_a;
-//	if ((*st_a)->content > bottom->content)
 	while (current->next != NULL)
 	{
 		if (current->content > current->next->content)
@@ -133,7 +133,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 					}
 				}
 			}
-			else if (node_pos > size / 2)
+			else if (node_pos > (size - node_pos))
 			{
 				while (node_pos <= size)
 				{
@@ -151,9 +151,11 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 				while (node_pos > 1)
 				{
 					exec_and_print("p", 'b', st_a, st_b);
+					//if (flag == 1)
+					//	sort_stack_b(st_a, st_b);
 					node_pos--;
 				}
-				if (flag == 1)
+				if (flag == 1 && !is_inverse_order(*st_b))
 					sort_stack_b(st_a, st_b);
 				exec_and_print("s", 'a', st_a, st_b);
 				current = current->next;
@@ -170,14 +172,14 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 		//printf("b: %i, a: %i, current: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
 		if (is_order(*st_a))
 		{
-			printf("mark1\n");
+			//printf("mark1\n");
 			while ((*st_b)->content > current->content && current->next != NULL)
 			{
 				current = current->next;
 				//printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
 			}
 			node_pos = ft_lstpos(*st_a, current);
-			if (current ->next == NULL)
+			if (current ->next == NULL && (*st_b)->content > current->content)
 				node_pos++;
 		}
 		else
@@ -248,78 +250,75 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	exec_and_print("last", 'b', st_a, st_b);
 }
 
-// void	sort_stack_b(t_stack **st_a, t_stack **st_b)
+// void	prepare_b_to_recieve(t_stack **st_a, t_stack **st_b)
 // {
 // 	t_stack	*current;
-// 	t_stack	*bottom;
 // 	int		size;
 // 	int		node_pos;
-// 	int		flag;
+// 	int		flag2;
 
-// 	if (!st_b || !*st_b || !(*st_b)->next)
-// 		return ;
 // 	current = *st_b;
-// 	while (current->next != NULL)
+// 	if (is_inverse_order(*st_b))
 // 	{
-// 		if (current->content < current->next->content)
-// 		{
-// 			bottom = ft_lstlast(*st_b);
-// 			size = ft_lstsize(*st_b);
-// 			node_pos = ft_lstpos(*st_b, current);
+// 		printf("mark1\n");
+// 		while ((*st_a)->content < current->content && current->next != NULL)
 // 			current = current->next;
-// 			if (size == 2)
-// 				exec_and_print("joker", 'b', st_a, st_b);
-// 			if ((*st_b)->content < bottom->content)
-// 			{
-// 				//Agrupar en una funcio rotate que valori internament si hem de fer normal o reverse rotate
-// 				if (node_pos <= size / 2)
-// 				{
-// 					while (node_pos >= 1)
-// 					{
-// 						exec_and_print("r", 'b', st_a, st_b);
-// 						node_pos--;
-// 					}
-// 				}
-// 				else
-// 				{
-// 					while (node_pos < size)
-// 					{
-// 						exec_and_print("rr", 'b', st_a, st_b);
-// 						node_pos++;
-// 					}
-// 				}
-// 			}
-// 			else if (node_pos > size / 2)
-// 			{
-// 				while (node_pos <= size)
-// 				{
-// 					exec_and_print("r", 'b', st_a, st_b);
-// 					node_pos++;
-// 				}
-// 				exec_and_print("s", 'b', st_a, st_b);
-// 				sort_stack_b(st_a, st_b);
-// 			}
-// 			else
-// 			{
-// 				flag = 0;
-// 				if ((*st_a != NULL && (*st_a)->content < (*st_b)->content))
-// 					flag = 1;
-// 				while (node_pos > 1)
-// 				{
-// 					exec_and_print("p", 'a', st_a, st_b);
-// 					node_pos--;
-// 				}
-// 				if (flag == 1)
-// 					sort_stack_a(st_a, st_b);
-// 				exec_and_print("s", 'b', st_a, st_b);
+// 		node_pos = ft_lstpos(*st_b, current);
+// 		if ((*st_a)->content < current->content && current->next == NULL)
+// 			node_pos++;
+// 	}
+// 	else
+// 	{
+// 		flag2 = 0;
+// 		if ((*st_a)->content < current->content)
+// 		{
+// 			while ((current->next != NULL) && (*st_a)->content < current->content)
 // 				current = current->next;
+// 			if (current->next == NULL && (*st_a)->content < current->content)
+// 				flag2 = 1;
+// 			node_pos = ft_lstpos(*st_b, current);
+// 		}
+// 		else
+// 		{
+// 			while ((current->next != NULL) && (*st_a)->content > current->content)
+// 				current = current->next;
+// 			if (current->next == NULL && (*st_a)->content > current->content)
+// 				flag2 = 1;
+// 			while ((current->next != NULL) && (*st_a)->content < current->content)
+// 				current = current->next;
+// 			if (current->next == NULL && (*st_a)->content < current->content)
+// 				flag2 = 1;
+// 			node_pos = ft_lstpos(*st_b, current);
+// 		}
+// 		if (flag2 == 1)
+// 		{
+// 			current = *st_b;
+// 			while (current->content > current->next->content)
+// 				current = current->next;
+// 			node_pos = ft_lstpos(*st_b, current) + 1;
+// 		}
+// 	}
+// 	size = ft_lstsize(*st_b);
+// 	if (node_pos != 1)
+// 	{
+// 		if (node_pos <= size / 2)
+// 		{
+// 			while (node_pos > 1)
+// 			{
+// 				exec_and_print("r", 'b', st_a, st_b);
+// 				node_pos--;
 // 			}
 // 		}
 // 		else
-// 			current = current->next;
+// 		{
+// 			while (node_pos <= size)
+// 			{
+// 				exec_and_print("rr", 'b', st_a, st_b);
+// 				node_pos++;
+// 			}
+// 		}
 // 	}
 // }
-
 
 void	sort_stack_b(t_stack **st_a, t_stack **st_b)
 {
@@ -336,8 +335,8 @@ void	sort_stack_b(t_stack **st_a, t_stack **st_b)
 		exec_and_print("r", 'b', st_a, st_b);
 	else if ((*st_b)->content < (*st_b)->next->content)
 		exec_and_print("s", 'b', st_a, st_b);
-	else
-		printf("Creia que no es donaria aquesta condicio\n");
+	//if (!is_inverse_order(*st_b))
+	//	sort_stack_b(st_a, st_b);
 }
 
 void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b)
@@ -394,6 +393,7 @@ char	*print_command (char *previous_command, char *command, char previous_id, ch
 				else
 					previous_command = "s";
 			}
+			previous_id = 's';
 		}
 	}
 	write (1, previous_command, ft_strlen(previous_command));
