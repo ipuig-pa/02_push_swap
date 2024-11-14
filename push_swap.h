@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/12 12:56:38 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:13:32 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_stack
 {
 	int				content;
+	int				index;
 	struct s_stack	*next;
 }	t_stack;
 
@@ -38,13 +39,15 @@ int		ft_lstsize(t_stack *stack);
 int		ft_lstpos(t_stack *current, t_stack *interrogated);
 t_stack	*clear_stack(t_stack *stack);
 int		is_order(t_stack *stack);
+int		is_arr_order(int *arr, int size);
 int		is_inverse_order(t_stack *stack);
 
 int		main(int argc, char **argv);
 t_stack	*parse_in_stack(int argc, int *arr);
+void	assign_index(t_stack *stack);
 void	sort_stack_a(t_stack **st_a, t_stack **st_b);
-void	sort_stack_b(t_stack **st_a, t_stack **st_b);
-void	prepare_b_to_recieve(t_stack **st_a, t_stack **st_b);
+//void	sort_stack_b(t_stack **st_a, t_stack **st_b);
+//void	prepare_b_to_recieve(t_stack **st_a, t_stack **st_b);
 void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b);
 char	*print_command (char *previous_command, char *command, char previous_id, char stack_id);
 

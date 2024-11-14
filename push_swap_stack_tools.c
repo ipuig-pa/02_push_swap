@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:17:55 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/12 12:43:40 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:28:27 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_stack	*ft_lstlast(t_stack *stack)
 
 int	ft_lstsize(t_stack *stack)
 {
-	int		size;
-	t_stack	*current;
+	int	size;
+	t_stack			*current;
 
 	size = 0;
 	current = stack;
