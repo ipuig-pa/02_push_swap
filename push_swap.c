@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/15 15:52:11 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:56:53 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,21 +261,21 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			current = current->next;
 		node_pos = ft_lstpos(*st_a, current);
 		if (node_pos <= size / 2)
+		{
+			while (node_pos >= 1)
 			{
-				while (node_pos > 1)
-				{
-					exec_and_print("r", 'a', st_a, st_b);
-					node_pos--;
-				}
+				exec_and_print("r", 'a', st_a, st_b);
+				node_pos--;
 			}
-			else
+		}
+		else
+		{
+			while (node_pos <= size)
 			{
-				while (node_pos <= size)
-				{
-					exec_and_print("rr", 'a', st_a, st_b);
-					node_pos++;
-				}
+				exec_and_print("rr", 'a', st_a, st_b);
+				node_pos++;
 			}
+		}
 	}
 }
 
