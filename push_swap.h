@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/14 17:13:32 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:59:38 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		is_valid_input(int argc, char **argv, int *arr);
 int		is_int(char *str);
 int		ft_atoi(const char *str);
 size_t	ft_strlen(const char *s);
+int		ft_sqrt(int nb);
 
 t_stack	*ft_lstlast(t_stack *stack);
 int		ft_lstsize(t_stack *stack);

@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/14 15:13:32 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:04:45 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,30 @@ int	is_arr_order(int *arr, int size)
 	}
 	return (1);
 }
+
+int	ft_sqrt(int nb)
+{
+	int	res;
+	int	previous_approx;
+
+	if (nb < 0)
+		return (0);
+	if (nb == 0 || nb == 1)
+	{
+		return (nb);
+	}
+	res = nb / 2;
+	previous_approx = 0;
+	while (res != previous_approx)
+	{
+		previous_approx = res;
+		res = 0.5 * (res + nb / res);
+	}
+	if (res * res == nb)
+		return (res);
+	return (0);
+}
+
 
 //eliminar ft_atoi d-aqui si es posa a libft
 int	ft_atoi(const char *str)

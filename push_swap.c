@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/15 14:48:17 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:25:09 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
-	t_stack	*current;
+	//t_stack	*current;
 	int		*arr;
 
 	arr = (int *)malloc((argc - 1) * sizeof(int));
@@ -47,26 +47,26 @@ int	main(int argc, char **argv)
 	//checker
 	if (stack_a)
 	{
-		current = stack_a;
-		if (stack_b == NULL)
-		{
-			current = stack_a;
-			while (current->next != NULL)
-			{
-				if (current->content > current->next->content)
-					printf("KO\n");
-				current = current->next;
-			}
-			printf("OK\n");
-		}
-		//visual checking
-		current = stack_a;
-		while (current != NULL)
-		{
-			printf("%i\n", current->content);
-			//printf("ind: %i\n", current->index);
-			current = current->next;
-		}
+		// current = stack_a;
+		// if (stack_b == NULL)
+		// {
+		// 	current = stack_a;
+		// 	while (current->next != NULL)
+		// 	{
+		// 		if (current->content > current->next->content)
+		// 			printf("KO\n");
+		// 		current = current->next;
+		// 	}
+		// 	printf("OK\n");
+		// }
+		// //visual checking
+		// current = stack_a;
+		// while (current != NULL)
+		// {
+		// 	printf("%i\n", current->content);
+		// 	//printf("ind: %i\n", current->index);
+		// 	current = current->next;
+		// }
 		clear_stack(stack_a);
 	}
 	return (0);
@@ -137,6 +137,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	int		node_pos;
 	int		flag;
 	int		flag2;
+	int		i;
 
 	size = ft_lstsize(*st_a);
 	if (size == 2)
@@ -166,7 +167,9 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	}
 	else
 	{
-		range = size / 10;
+		range = ft_sqrt(size) * (14 / 10);
+		i = 0;
+		//i = 1;
 		//printf("range: %i\n", range);
 		while (ft_lstsize(*st_a) > 3 && !is_order(*st_a))
 		{
@@ -174,7 +177,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			current = *st_a;
 			//printf("index:%i\n", current->index);
 			//printf("comparing:%i\n", ((size / 2) - range));
-			if (current->index >= ((size / 2) - range) && current->index <= ((size / 2) + range))
+			if (current->index <= ((size / 2) + i + range) && current->index >= ((size / 2) - i - range))
 			{
 				flag = 0;
 				if (*st_b != NULL && current->index < (size / 2))
@@ -182,8 +185,16 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 				exec_and_print("p", 'b', st_a, st_b);
 				if (flag == 1)
 					exec_and_print("r", 'b', st_a, st_b);
-				range = range + (size / 4);
+				i++;
 			}
+			// working for K SORT
+			// if (current->index <= i + range)
+			// {
+			// 	exec_and_print("p", 'b', st_a, st_b);
+			// 	if (i % 2 == 0)
+			// 		exec_and_print("r", 'b', st_a, st_b);
+			// 	i++;
+			// }
 			else
 				exec_and_print("r", 'a', st_a, st_b);
 			//printf("range: %i\n", range);
@@ -194,6 +205,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	}
 	//printf("size: %i\n", ft_lstsize(*st_a));
 	//printf("b: %i, a: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, (*st_a)->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
+	i = 1;
 	while (*st_b != NULL)
 	{
 		current = *st_a;
@@ -276,6 +288,9 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			}
 		}
 		exec_and_print("p", 'a', st_a, st_b);
+		// if (i % 2 == 0)
+		// 	exec_and_print("rr", 'b', st_a, st_b);
+		// i++;
 	}
 	if (!is_order(*st_a))
 	{
