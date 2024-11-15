@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/14 17:18:37 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:48:17 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
-	//t_stack	*current;
+	t_stack	*current;
 	int		*arr;
 
 	arr = (int *)malloc((argc - 1) * sizeof(int));
@@ -45,30 +45,30 @@ int	main(int argc, char **argv)
 	else
 		free(arr);
 	//checker
-	// if (stack_a)
-	// {
-	// 	current = stack_a;
-	// 	if (stack_b == NULL)
-	// 	{
-	// 		current = stack_a;
-	// 		while (current->next != NULL)
-	// 		{
-	// 			if (current->content > current->next->content)
-	// 				printf("KO\n");
-	// 			current = current->next;
-	// 		}
-	// 		printf("OK\n");
-	// 	}
-	// 	//visual checking
-	// 	current = stack_a;
-	// 	while (current != NULL)
-	// 	{
-	// 		printf("%i\n", current->content);
-	// 		//printf("ind: %i\n", current->index);
-	// 		current = current->next;
-	// 	}
-	// 	clear_stack(stack_a);
-	// }
+	if (stack_a)
+	{
+		current = stack_a;
+		if (stack_b == NULL)
+		{
+			current = stack_a;
+			while (current->next != NULL)
+			{
+				if (current->content > current->next->content)
+					printf("KO\n");
+				current = current->next;
+			}
+			printf("OK\n");
+		}
+		//visual checking
+		current = stack_a;
+		while (current != NULL)
+		{
+			printf("%i\n", current->content);
+			//printf("ind: %i\n", current->index);
+			current = current->next;
+		}
+		clear_stack(stack_a);
+	}
 	return (0);
 }
 
@@ -146,26 +146,22 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	}
 	else if (size == 3)
 	{
-	 	current = *st_a;
-		if (current->content > current->next->content)
+		if ((*st_a)->content > (*st_a)->next->content)
 		{
-			if (current->next->content > current->next->next->content)
+			if ((*st_a)->next->content > (*st_a)->next->next->content)
 			{
 				exec_and_print("s", 'a', st_a, st_b);
 				exec_and_print("rr", 'a', st_a, st_b);
 			}
-			else if (current->index == 3)
+			else if ((*st_a)->content > (*st_a)->next->next->content)
 				exec_and_print("r", 'a', st_a, st_b);
 			else
 				exec_and_print("s", 'a', st_a, st_b);
 		}
-		else 
+		else
 			exec_and_print("rr", 'a', st_a, st_b);
-		if (current->index == 3)
-		{
+		if ((*st_a)->content > (*st_a)->next->content)
 			exec_and_print("s", 'a', st_a, st_b);
-			exec_and_print("rr", 'a', st_a, st_b);
-		}
 		return ;
 	}
 	else
@@ -192,10 +188,12 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 				exec_and_print("r", 'a', st_a, st_b);
 			//printf("range: %i\n", range);
 		}
+		printf("b: %i, a: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, (*st_a)->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
 		if (!is_order(*st_a))
 			sort_stack_a(st_a, st_b);
 	}
 	//printf("size: %i\n", ft_lstsize(*st_a));
+	//printf("b: %i, a: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, (*st_a)->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
 	while (*st_b != NULL)
 	{
 		current = *st_a;
@@ -222,8 +220,8 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 				while ((current->next != NULL) && (*st_b)->content < current->content)
 					current = current->next;
 				if (current->next == NULL && (*st_b)->content < current->content)
-					node_pos = ft_lstpos(*st_a, current) + 1;
-				else if (current->next != NULL)
+					flag2 = 1;
+				else if (current->next != NULL && current != *st_a)
 				{
 					while ((current->next != NULL) && (*st_b)->content > current->content)
 						current = current->next;
@@ -233,7 +231,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 						node_pos = ft_lstpos(*st_a, current);
 				}
 				else
-					node_pos = ft_lstpos(*st_a, current);
+					node_pos = ft_lstpos(*st_a, current) + 1;
 			}
 			else
 			{
@@ -246,21 +244,21 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			}
 			if (flag2 == 1)
 			{
-				printf("mark2.3\n");
+				//printf("mark2.3\n");
 				current = *st_a;
-				while (current->content > current->next->content)
+				while (current->content < current->next->content)
 				{
 					current = current->next;
-					printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
+					//printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
 				}
-				node_pos = ft_lstpos(*st_a, current);
+				node_pos = ft_lstpos(*st_a, current) + 1;
 			}
 		}
 		size = ft_lstsize(*st_a);
 		//printf("num: %i, node: %i, size: %i\n", (*st_b)->content, node_pos, size);
 		if (node_pos != 1)
 		{
-			if (node_pos <= size / 2)
+			if (node_pos <= (size / 2))
 			{
 				while (node_pos > 1)
 				{
@@ -598,7 +596,7 @@ char	*print_command (char *previous_command, char *command, char previous_id, ch
 	if (!previous_command || previous_command[0] == 'l')
 		return (command);
 	joined_commands = 0;
-	if (previous_command[0] == command[0] || previous_command[0] == 'j' || command[0] == 'j')
+	if (previous_command == command || previous_command[0] == 'j' || command[0] == 'j')
 	{
 		if (stack_id != previous_id)
 		{
@@ -611,6 +609,8 @@ char	*print_command (char *previous_command, char *command, char previous_id, ch
 					previous_command = "s";
 			}
 			previous_id = 's';
+			if (previous_command[0] == 'r')
+				previous_id = 'r';
 		}
 	}
 	write (1, previous_command, ft_strlen(previous_command));
