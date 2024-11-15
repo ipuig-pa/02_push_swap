@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/15 15:56:53 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:54:08 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	int		range;
 	t_stack	*current;
 	int		node_pos;
-	int		flag2;
 	int		i;
 
 	size = ft_lstsize(*st_a);
@@ -166,80 +165,40 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	}
 	else
 	{
-		range = ft_sqrt(size) * (14 / 10);
+		range = ft_sqrt(size) * 14 / 10;
 		i = 1;
-		while (ft_lstsize(*st_a) > 3 && !is_order(*st_a))
+		while (*st_a != NULL)
 		{
 			current = *st_a;
-			if (current->index <= i + range)
+			if (current->index <= i)
 			{
 				exec_and_print("p", 'b', st_a, st_b);
-				if (i % 2 == 0)
+				if ((*st_b)->next != NULL)
 					exec_and_print("r", 'b', st_a, st_b);
+				i++;
+			}
+			else if (current->index <= i + range)
+			{
+				exec_and_print("p", 'b', st_a, st_b);
 				i++;
 			}
 			else
 				exec_and_print("r", 'a', st_a, st_b);
 		}
-		if (!is_order(*st_a))
-			sort_stack_a(st_a, st_b);
 	}
 	while (*st_b != NULL)
 	{
-		current = *st_a;
-		if (is_order(*st_a))
-		{
-			while ((*st_b)->content > current->content && current->next != NULL)
-				current = current->next;
-			node_pos = ft_lstpos(*st_a, current);
-			if (current->next == NULL && (*st_b)->content > current->content)
-				node_pos++;
-		}
-		else
-		{
-			flag2 = 0;
-			if ((*st_b)->content < current->content)
-			{
-				while ((current->next != NULL) && (*st_b)->content < current->content)
-					current = current->next;
-				if (current->next == NULL && (*st_b)->content < current->content)
-					flag2 = 1;
-				else if (current->next != NULL && current != *st_a)
-				{
-					while ((current->next != NULL) && (*st_b)->content > current->content)
-						current = current->next;
-					if (current->next == NULL && (*st_b)->content > current->content)
-						node_pos = ft_lstpos(*st_a, current) + 1;
-					else
-						node_pos = ft_lstpos(*st_a, current);
-				}
-				else
-					node_pos = ft_lstpos(*st_a, current) + 1;
-			}
-			else
-			{
-				while ((current->next != NULL) && (*st_b)->content > current->content)
-					current = current->next;
-				if (current->next == NULL && (*st_b)->content > current->content)
-					flag2 = 1;
-				node_pos = ft_lstpos(*st_a, current);
-			}
-			if (flag2 == 1)
-			{
-				current = *st_a;
-				while (current->content < current->next->content)
-					current = current->next;
-				node_pos = ft_lstpos(*st_a, current) + 1;
-			}
-		}
-		size = ft_lstsize(*st_a);
+		current = *st_b;
+		while (current->index != size)
+			current = current->next;
+		node_pos = ft_lstpos(*st_b, current);
 		if (node_pos != 1)
 		{
 			if (node_pos <= (size / 2))
 			{
 				while (node_pos > 1)
 				{
-					exec_and_print("r", 'a', st_a, st_b);
+					exec_and_print("r", 'b', st_a, st_b);
 					node_pos--;
 				}
 			}
@@ -247,35 +206,13 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			{
 				while (node_pos <= size)
 				{
-					exec_and_print("rr", 'a', st_a, st_b);
+					exec_and_print("rr", 'b', st_a, st_b);
 					node_pos++;
 				}
 			}
 		}
 		exec_and_print("p", 'a', st_a, st_b);
-	}
-	if (!is_order(*st_a))
-	{
-		current = *st_a;
-		while (current->content < current->next->content)
-			current = current->next;
-		node_pos = ft_lstpos(*st_a, current);
-		if (node_pos <= size / 2)
-		{
-			while (node_pos >= 1)
-			{
-				exec_and_print("r", 'a', st_a, st_b);
-				node_pos--;
-			}
-		}
-		else
-		{
-			while (node_pos <= size)
-			{
-				exec_and_print("rr", 'a', st_a, st_b);
-				node_pos++;
-			}
-		}
+		size--;
 	}
 }
 
