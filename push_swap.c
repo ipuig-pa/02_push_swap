@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/15 15:34:07 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:52:11 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	int		range;
 	t_stack	*current;
 	int		node_pos;
-	int		flag;
 	int		flag2;
 	int		i;
 
@@ -168,67 +167,39 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	else
 	{
 		range = ft_sqrt(size) * (14 / 10);
-		i = 0;
-		//i = 1;
-		//printf("range: %i\n", range);
+		i = 1;
 		while (ft_lstsize(*st_a) > 3 && !is_order(*st_a))
 		{
-			//printf("size: %i\n", ft_lstsize(*st_a));
 			current = *st_a;
-			//printf("index:%i\n", current->index);
-			//printf("comparing:%i\n", ((size / 2) - range));
-			if (current->index <= ((size / 2) + i + range) && current->index >= ((size / 2) - i - range))
+			if (current->index <= i + range)
 			{
-				flag = 0;
-				if (*st_b != NULL && current->index < (size / 2))
-					flag = 1;
 				exec_and_print("p", 'b', st_a, st_b);
-				if (flag == 1)
+				if (i % 2 == 0)
 					exec_and_print("r", 'b', st_a, st_b);
 				i++;
 			}
-			// working for K SORT
-			// if (current->index <= i + range)
-			// {
-			// 	exec_and_print("p", 'b', st_a, st_b);
-			// 	if (i % 2 == 0)
-			// 		exec_and_print("r", 'b', st_a, st_b);
-			// 	i++;
-			// }
 			else
 				exec_and_print("r", 'a', st_a, st_b);
-			//printf("range: %i\n", range);
 		}
-		printf("b: %i, a: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, (*st_a)->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
 		if (!is_order(*st_a))
 			sort_stack_a(st_a, st_b);
 	}
-	//printf("size: %i\n", ft_lstsize(*st_a));
-	//printf("b: %i, a: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, (*st_a)->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
-	i = 1;
 	while (*st_b != NULL)
 	{
 		current = *st_a;
-		//printf("b: %i, a: %i, current: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
 		if (is_order(*st_a))
 		{
-			//printf("mark1\n");
 			while ((*st_b)->content > current->content && current->next != NULL)
-			{
 				current = current->next;
-				//printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
-			}
 			node_pos = ft_lstpos(*st_a, current);
 			if (current->next == NULL && (*st_b)->content > current->content)
 				node_pos++;
 		}
 		else
 		{
-			//printf("mark2\n");
 			flag2 = 0;
 			if ((*st_b)->content < current->content)
 			{
-				//printf("mark2.1\n");
 				while ((current->next != NULL) && (*st_b)->content < current->content)
 					current = current->next;
 				if (current->next == NULL && (*st_b)->content < current->content)
@@ -247,7 +218,6 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			}
 			else
 			{
-				//printf("mark2.2\n");
 				while ((current->next != NULL) && (*st_b)->content > current->content)
 					current = current->next;
 				if (current->next == NULL && (*st_b)->content > current->content)
@@ -256,18 +226,13 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			}
 			if (flag2 == 1)
 			{
-				//printf("mark2.3\n");
 				current = *st_a;
 				while (current->content < current->next->content)
-				{
 					current = current->next;
-					//printf("b: %i, a: %i, current: %i, next: %i, lst: %i\n", (*st_b)->content, (*st_a)->content, current->content, current->next->content, (ft_lstlast(*st_a))->content);
-				}
 				node_pos = ft_lstpos(*st_a, current) + 1;
 			}
 		}
 		size = ft_lstsize(*st_a);
-		//printf("num: %i, node: %i, size: %i\n", (*st_b)->content, node_pos, size);
 		if (node_pos != 1)
 		{
 			if (node_pos <= (size / 2))
@@ -288,9 +253,6 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			}
 		}
 		exec_and_print("p", 'a', st_a, st_b);
-		// if (i % 2 == 0)
-		// 	exec_and_print("rr", 'b', st_a, st_b);
-		// i++;
 	}
 	if (!is_order(*st_a))
 	{
