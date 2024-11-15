@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/15 15:30:45 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:34:07 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 	int		range;
 	t_stack	*current;
 	int		node_pos;
-	//int		flag;
+	int		flag;
 	int		flag2;
 	int		i;
 
@@ -171,25 +171,22 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 		i = 0;
 		//i = 1;
 		//printf("range: %i\n", range);
-		while (ft_lstsize(*st_a) > (size / 2) && !is_order(*st_a))
+		while (ft_lstsize(*st_a) > 3 && !is_order(*st_a))
 		{
 			//printf("size: %i\n", ft_lstsize(*st_a));
 			current = *st_a;
 			//printf("index:%i\n", current->index);
 			//printf("comparing:%i\n", ((size / 2) - range));
-			if (current->index <= (size / 2))
+			if (current->index <= ((size / 2) + i + range) && current->index >= ((size / 2) - i - range))
+			{
+				flag = 0;
+				if (*st_b != NULL && current->index < (size / 2))
+					flag = 1;
 				exec_and_print("p", 'b', st_a, st_b);
-			// working for HALF-SORT
-			// if (current->index <= ((size / 2) + i + range) && current->index >= ((size / 2) - i - range))
-			// {
-			// 	flag = 0;
-			// 	if (*st_b != NULL && current->index < (size / 2))
-			// 		flag = 1;
-			// 	exec_and_print("p", 'b', st_a, st_b);
-			// 	if (flag == 1)
-			// 		exec_and_print("r", 'b', st_a, st_b);
-			// 	i++;
-			// }
+				if (flag == 1)
+					exec_and_print("r", 'b', st_a, st_b);
+				i++;
+			}
 			// working for K SORT
 			// if (current->index <= i + range)
 			// {
@@ -202,9 +199,7 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 				exec_and_print("r", 'a', st_a, st_b);
 			//printf("range: %i\n", range);
 		}
-		while (ft_lstsize(*st_a) > 3 && !is_order(*st_a))
-			exec_and_print("p", 'b', st_a, st_b);
-		//printf("b: %i, a: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, (*st_a)->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
+		printf("b: %i, a: %i, next: %i, lst: %i, order: %i\n", (*st_b)->content, (*st_a)->content, (*st_a)->next->content, (ft_lstlast(*st_a))->content, is_order(*st_a));
 		if (!is_order(*st_a))
 			sort_stack_a(st_a, st_b);
 	}
