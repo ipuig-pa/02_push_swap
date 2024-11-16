@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 14:01:29 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:48:25 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ t_stack	*assign_index(t_stack *stack);
 
 void	sort_stack_a(t_stack **st_a);
 void	small_size_sort(int size, t_stack **st_a);
+void	middle_size_sort(int size, t_stack **st_a);
 void	big_size_sort(int size, t_stack **st_a);
 t_stack	**move_to_b(int size, t_stack **st_a, t_stack **st_b);
 void	back_to_a(int size, t_stack **st_a, t_stack **st_b);
+void	prepare_push(t_stack **st_a, t_stack **st_b, int ind, char id);
 
 void	exec_and_print(char *comm, char st_id, t_stack **st_a, t_stack **st_b);
 char	*print(char *prev_comm, char *comm, char prev_id, char st_id);
@@ -54,6 +56,7 @@ int		ft_sqrt(int num);
 t_stack	*ft_lstlast(t_stack *stack);
 int		ft_lstsize(t_stack *stack);
 int		ft_lstpos(t_stack *current, t_stack *interrogated);
+int		is_order(t_stack *stack);
 t_stack	*clear_stack(t_stack *stack);
 
 #endif
