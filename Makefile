@@ -2,14 +2,14 @@ NAME = push_swap
 
 CFLAGS = -Wall -Wextra -Werror
 
-SOURCES = push_swap_commands.c push_swap_helper.c push_swap_stack_tools.c push_swap.c
+SOURCES = push_swap.c push_swap_stack_creation.c push_swap_sort.c push_swap_exec_and_print.c push_swap_commands.c push_swap_helper.c push_swap_stack_tools.c 
 OBJECTS = $(SOURCES:.c=.o)
 HEADER = push_swap.h
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-#libft make, get next line, ft printf, bonus, etc
+#get next line, ft printf, bonus, etc
 
 all : $(LIBFT) $(NAME)
 

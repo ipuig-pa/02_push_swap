@@ -6,17 +6,11 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 10:50:08 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:58:23 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	display_error(void)
-{
-	printf("Error\n");
-	return (1);
-}
 
 int	handle_error(int flag, char **argv, int *arr)
 {
@@ -24,7 +18,8 @@ int	handle_error(int flag, char **argv, int *arr)
 		free(argv);
 	if (arr)
 		free(arr);
-	return (display_error());
+	printf("Error\n");
+	return (1);
 }
 
 int	arrlen(char **arr)
@@ -37,31 +32,6 @@ int	arrlen(char **arr)
 	while (arr[len] != NULL)
 		len++;
 	return (len);
-}
-
-int	valid_input_to_arr(int count, char **argv, int *arr)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (count <= 1)
-		return (0);
-	while (i + 1 < count)
-	{
-		if (!is_int(argv[i + 1]))
-			return (0);
-		arr[i] = ft_atoi(argv[i + 1]);
-		j = 0;
-		while (j < i)
-		{
-			if (arr[i] == arr[j])
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
 }
 
 int	is_int(char *str)
