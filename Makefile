@@ -1,27 +1,35 @@
-NAME = push_swap.a
+NAME = push_swap
 
 CFLAGS = -Wall -Wextra -Werror
-SOURCES = 
 
-OBJECTS = $(SOURCES: .c=.o)
+SOURCES = push_swap_commands.c push_swap_helper.c push_swap_stack_tools.c push_swap.c
+OBJECTS = $(SOURCES:.c=.o)
 HEADER = push_swap.h
 
-//libft make!!!!!
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-all : $(NAME) $(LIBFT)
+#libft make, get next line, ft printf, bonus, etc
 
-$(NAME) : $(OBJECTS)
-	ar rcs $(NAME) $(OBJECTS)
+all : $(LIBFT) $(NAME)
 
-%o. : %.c $(HEADER)
+$(LIBFT) : 
+	make -C $(LIBFT_DIR)
+
+$(NAME) : $(OBJECTS) $(LIBFT)
+	cc $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBFT)
+
+%o.: %.c $(HEADER)
 	cc $(CFLAGS) -c $< -o $@
 
 clean:
-	rm - f $(OBJECTS)
+	rm -f $(OBJECTS)
+	make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-PHONY all clean fclean re
+.PHONY: all clean fclean re

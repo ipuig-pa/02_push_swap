@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/15 14:59:38 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:26:21 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-//eliminar stdio.h
 # include <stdio.h>
-//# include "libft.h"
-//eliminar atoi i strlen daqui si es posa libft
+# include "libft/libft.h"
 
 typedef struct s_stack
 {
@@ -29,10 +27,10 @@ typedef struct s_stack
 }	t_stack;
 
 int		display_error(void);
-int		is_valid_input(int argc, char **argv, int *arr);
+int		handle_error(int flag, char **argv, int *arr);
+int		arrlen(char **arr);
+int		valid_input_to_arr(int count, char **argv, int *arr);
 int		is_int(char *str);
-int		ft_atoi(const char *str);
-size_t	ft_strlen(const char *s);
 int		ft_sqrt(int nb);
 
 t_stack	*ft_lstlast(t_stack *stack);
@@ -45,12 +43,14 @@ int		is_inverse_order(t_stack *stack);
 
 int		main(int argc, char **argv);
 t_stack	*parse_in_stack(int argc, int *arr);
-void	assign_index(t_stack *stack);
-void	sort_stack_a(t_stack **st_a, t_stack **st_b);
-//void	sort_stack_b(t_stack **st_a, t_stack **st_b);
-//void	prepare_b_to_recieve(t_stack **st_a, t_stack **st_b);
+t_stack	*assign_index(t_stack *stack);
+void	sort_stack_a(t_stack **st_a);
+void	small_size_sort(int size, t_stack **st_a);
+t_stack	**move_to_b(int size, t_stack **st_a, t_stack **st_b);
+void	back_to_a(int size, t_stack **st_a, t_stack **st_b);
 void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b);
 char	*print_command (char *previous_command, char *command, char previous_id, char stack_id);
+void	big_size_sort(int size, t_stack **st_a);
 
 void	swap(t_stack **stack);
 void	push(t_stack **stack_source, t_stack **stack_destination);

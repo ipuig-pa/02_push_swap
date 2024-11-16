@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/15 16:53:51 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/16 10:50:08 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,36 @@ int	display_error(void)
 	return (1);
 }
 
-int	is_valid_input(int argc, char **argv, int *arr)
+int	handle_error(int flag, char **argv, int *arr)
+{
+	if (flag == 1)
+		free(argv);
+	if (arr)
+		free(arr);
+	return (display_error());
+}
+
+int	arrlen(char **arr)
+{
+	int	len;
+
+	if (arr == NULL)
+		return (0);
+	len = 0;
+	while (arr[len] != NULL)
+		len++;
+	return (len);
+}
+
+int	valid_input_to_arr(int count, char **argv, int *arr)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	if (argc <= 2)
+	if (count <= 1)
 		return (0);
-	while (i + 1 < argc)
+	while (i + 1 < count)
 	{
 		if (!is_int(argv[i + 1]))
 			return (0);
@@ -98,39 +119,4 @@ int	ft_sqrt(int num)
 		i++;
 	}
 	return (i);
-}
-
-//eliminar ft_atoi d-aqui si es posa a libft
-int	ft_atoi(const char *str)
-{
-	int	integer;
-	int	sign;
-
-	integer = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			sign = sign * (-1);
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		integer = integer * 10 + (*str - '0');
-		str++;
-	}
-	return (integer * sign);
-}
-
-//eliminar strlen d-aqui
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
 }

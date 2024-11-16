@@ -6,70 +6,40 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/15 16:54:08 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:31:54 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-//eliminar stdio.h, canviar printf per ft_printf
-
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
-	t_stack	*stack_b;
-	//t_stack	*current;
 	int		*arr;
+	int		flag;
 
-	arr = (int *)malloc((argc - 1) * sizeof(int));
-	if (!arr || !is_valid_input(argc, argv, arr))
+	flag = 0;
+	if (argc == 2)
 	{
-		if (arr)
-			free(arr);
-		return (display_error());
+		flag = 1;
+		argv = ft_split(argv[1], ' ');
+		argc = arrlen(argv) + 1;
 	}
-	stack_a = NULL;
+	arr = (int *)malloc((argc - 1) * sizeof(int));
+	if (!arr || !valid_input_to_arr(argc - 1, argv, arr))
+		return (handle_error(flag, argv, arr));
 	if (!is_arr_order(arr, argc - 1))
 	{
 		stack_a = parse_in_stack(argc, arr);
-		free(arr);
 		if (!stack_a)
 			return (display_error());
-		assign_index(stack_a);
-		stack_b = NULL;
-		sort_stack_a(&stack_a, &stack_b);
-		//com fer que printi l'ultima de manera m'es elegant que aix[o que repeteix exec_and_print 2 vegades en va.] potser fer des d-aquesta funcio la variable estatica de previous_command?
-		exec_and_print("last", 'b', &stack_a, &stack_b);
-	}
-	else
-		free(arr);
-	//checker
-	if (stack_a)
-	{
-		// current = stack_a;
-		// if (stack_b == NULL)
-		// {
-		// 	current = stack_a;
-		// 	while (current->next != NULL)
-		// 	{
-		// 		if (current->content > current->next->content)
-		// 			printf("KO\n");
-		// 		current = current->next;
-		// 	}
-		// 	printf("OK\n");
-		// }
-		// //visual checking
-		// current = stack_a;
-		// while (current != NULL)
-		// {
-		// 	printf("%i\n", current->content);
-		// 	//printf("ind: %i\n", current->index);
-		// 	current = current->next;
-		// }
+		sort_stack_a(&stack_a);
 		clear_stack(stack_a);
 	}
-	return (0);
+	if (flag == 1)
+		free(argv);
+	return (free(arr), 0);
 }
 
 t_stack	*parse_in_stack(int argc, int *arr)
@@ -98,10 +68,10 @@ t_stack	*parse_in_stack(int argc, int *arr)
 		i++;
 	}
 	current->next = NULL;
-	return (stack_a);
+	return (assign_index(stack_a));
 }
 
-void	assign_index(t_stack *stack)
+t_stack	*assign_index(t_stack *stack)
 {
 	int		i;
 	t_stack	*current;
@@ -127,23 +97,29 @@ void	assign_index(t_stack *stack)
 		min->index = i;
 		i++;
 	}
+	return (stack);
 }
 
-void	sort_stack_a(t_stack **st_a, t_stack **st_b)
+void	sort_stack_a(t_stack **st_a)
 {
 	int		size;
-	int		range;
-	t_stack	*current;
-	int		node_pos;
-	int		i;
 
 	size = ft_lstsize(*st_a);
+	if (size <= 3)
+		small_size_sort(size, st_a);
+	else
+		big_size_sort(size, st_a);
+	exec_and_print("last", 'b', st_a, NULL);
+}
+
+void	small_size_sort(int size, t_stack **st_a)
+{
+	t_stack	**st_b;
+
+	st_b = NULL;
 	if (size == 2)
-	{
-		exec_and_print("joker", 'a', st_a, st_b);
-		return ;
-	}
-	else if (size == 3)
+		exec_and_print("s", 'a', st_a, st_b);
+	else
 	{
 		if ((*st_a)->content > (*st_a)->next->content)
 		{
@@ -161,31 +137,50 @@ void	sort_stack_a(t_stack **st_a, t_stack **st_b)
 			exec_and_print("rr", 'a', st_a, st_b);
 		if ((*st_a)->content > (*st_a)->next->content)
 			exec_and_print("s", 'a', st_a, st_b);
-		return ;
 	}
-	else
+}
+
+void	big_size_sort(int size, t_stack **st_a)
+{
+	t_stack	*st_b;
+
+	st_b = NULL;
+	st_b = *move_to_b(size, st_a, &st_b);
+	back_to_a(size, st_a, &st_b);
+}
+
+t_stack	**move_to_b(int size, t_stack **st_a, t_stack **st_b)
+{
+	int		range;
+	int		i;
+
+	range = ft_sqrt(size) * 14 / 10;
+	i = 1;
+	while (*st_a != NULL)
 	{
-		range = ft_sqrt(size) * 14 / 10;
-		i = 1;
-		while (*st_a != NULL)
+		if ((*st_a)->index <= i)
 		{
-			current = *st_a;
-			if (current->index <= i)
-			{
-				exec_and_print("p", 'b', st_a, st_b);
-				if ((*st_b)->next != NULL)
-					exec_and_print("r", 'b', st_a, st_b);
-				i++;
-			}
-			else if (current->index <= i + range)
-			{
-				exec_and_print("p", 'b', st_a, st_b);
-				i++;
-			}
-			else
-				exec_and_print("r", 'a', st_a, st_b);
+			exec_and_print("p", 'b', st_a, st_b);
+			if ((*st_b)->next != NULL)
+				exec_and_print("r", 'b', st_a, st_b);
+			i++;
 		}
+		else if ((*st_a)->index <= i + range)
+		{
+			exec_and_print("p", 'b', st_a, st_b);
+			i++;
+		}
+		else
+			exec_and_print("r", 'a', st_a, st_b);
 	}
+	return (st_b);
+}
+
+void	back_to_a(int size, t_stack **st_a, t_stack **st_b)
+{
+	t_stack	*current;
+	int		node_pos;
+
 	while (*st_b != NULL)
 	{
 		current = *st_b;
@@ -236,7 +231,7 @@ void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b
 		stack = st_b;
 		other_stack = st_a;
 	}
-	if (command[0] == 's' || command[0] == 'j')
+	if (command[0] == 's')
 		swap(stack);
 	else if (command[0] == 'r')
 	{
@@ -258,7 +253,7 @@ char	*print_command (char *previous_command, char *command, char previous_id, ch
 	if (!previous_command || previous_command[0] == 'l')
 		return (command);
 	joined_commands = 0;
-	if (previous_command == command || previous_command[0] == 'j' || command[0] == 'j')
+	if (previous_command == command)
 	{
 		if (stack_id != previous_id)
 		{
