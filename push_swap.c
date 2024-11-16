@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 11:31:54 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:37:59 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	int		*arr;
 	int		flag;
+	// t_stack	*current;
 
 	flag = 0;
 	if (argc == 2)
 	{
 		flag = 1;
 		argv = ft_split(argv[1], ' ');
-		argc = arrlen(argv) + 1;
+		argc = arrlen(argv);
 	}
 	arr = (int *)malloc((argc - 1) * sizeof(int));
-	if (!arr || !valid_input_to_arr(argc - 1, argv, arr))
+	if (!arr || !valid_input_to_arr(argc, argv, arr))
 		return (handle_error(flag, argv, arr));
 	if (!is_arr_order(arr, argc - 1))
 	{
@@ -35,6 +36,21 @@ int	main(int argc, char **argv)
 		if (!stack_a)
 			return (display_error());
 		sort_stack_a(&stack_a);
+		// current = stack_a;
+		// while (current->next != NULL)
+		// {
+		// 	if (current->content > current->next->content)
+		// 		printf("KO\n");
+		// 	current = current->next;
+		// }
+		// printf("OK\n");
+		// //visual checking
+		// current = stack_a;
+		// while (current != NULL)
+		// {
+		// 	printf("%i: %i\n", current->index, current->content);
+		// 	current = current->next;
+		// }
 		clear_stack(stack_a);
 	}
 	if (flag == 1)
@@ -109,7 +125,7 @@ void	sort_stack_a(t_stack **st_a)
 		small_size_sort(size, st_a);
 	else
 		big_size_sort(size, st_a);
-	exec_and_print("last", 'b', st_a, NULL);
+	exec_and_print("last", 'a', st_a, NULL);
 }
 
 void	small_size_sort(int size, t_stack **st_a)
@@ -165,7 +181,7 @@ t_stack	**move_to_b(int size, t_stack **st_a, t_stack **st_b)
 				exec_and_print("r", 'b', st_a, st_b);
 			i++;
 		}
-		else if ((*st_a)->index <= i + range)
+		else if ((*st_a)->index <= (i + range))
 		{
 			exec_and_print("p", 'b', st_a, st_b);
 			i++;
@@ -187,95 +203,73 @@ void	back_to_a(int size, t_stack **st_a, t_stack **st_b)
 		while (current->index != size)
 			current = current->next;
 		node_pos = ft_lstpos(*st_b, current);
-		if (node_pos != 1)
+		if (node_pos != 1 && node_pos <= (size / 2))
 		{
-			if (node_pos <= (size / 2))
-			{
-				while (node_pos > 1)
-				{
-					exec_and_print("r", 'b', st_a, st_b);
-					node_pos--;
-				}
-			}
-			else
-			{
-				while (node_pos <= size)
-				{
-					exec_and_print("rr", 'b', st_a, st_b);
-					node_pos++;
-				}
-			}
+			while (node_pos-- > 1)
+				exec_and_print("r", 'b', st_a, st_b);
+		}
+		else if (node_pos != 1)
+		{
+			while (node_pos++ <= size)
+				exec_and_print("rr", 'b', st_a, st_b);
 		}
 		exec_and_print("p", 'a', st_a, st_b);
 		size--;
 	}
 }
 
-void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b)
+void	exec_and_print(char *comm, char st_id, t_stack **st_a, t_stack **st_b)
 {
 	t_stack		**stack;
 	t_stack		**other_stack;
-	static char	*previous_command;
-	static char	previous_id;
+	static char	*prev_comm;
+	static char	prev_id;
 
-	if (command[0] == 'l')
+	if (comm[0] != 'l')
 	{
-		previous_command = print_command(previous_command, command, previous_id, 'a');
-		return ;
-	}
-	other_stack = st_b;
-	if (stack_id == 'a')
 		stack = st_a;
-	else
-	{
-		stack = st_b;
-		other_stack = st_a;
-	}
-	if (command[0] == 's')
-		swap(stack);
-	else if (command[0] == 'r')
-	{
-		if (command[1] == '\0')
+		other_stack = st_b;
+		if (st_id == 'b')
+		{
+			stack = st_b;
+			other_stack = st_a;
+		}
+		if (comm[0] == 's')
+			swap(stack);
+		else if (comm[0] == 'p')
+			push(stack, other_stack);
+		else if (comm[1] == '\0')
 			rotate(stack);
 		else
 			reverse_rotate(stack);
 	}
-	else if (command[0] == 'p')
-		push(stack, other_stack);
-	previous_command = print_command(previous_command, command, previous_id, stack_id);
-	previous_id = stack_id;
+	prev_comm = print(prev_comm, comm, prev_id, st_id);
+	prev_id = st_id;
 }
 
-char	*print_command (char *previous_command, char *command, char previous_id, char stack_id)
+char	*print(char *prev_comm, char *comm, char prev_id, char st_id)
 {
 	int	joined_commands;
 
-	if (!previous_command || previous_command[0] == 'l')
-		return (command);
+	if (!prev_comm || prev_comm[0] == 'l')
+		return (comm);
 	joined_commands = 0;
-	if (previous_command == command)
+	if (prev_comm == comm)
 	{
-		if (stack_id != previous_id)
+		if (st_id != prev_id)
 		{
 			joined_commands = 1;
-			if (previous_command[0] == 'j')
-			{
-				if (command[0] != 'j')
-					previous_command = command;
-				else
-					previous_command = "s";
-			}
-			previous_id = 's';
-			if (previous_command[0] == 'r')
-				previous_id = 'r';
+			prev_id = 's';
+			if (prev_comm[0] == 'r')
+				prev_id = 'r';
 		}
 	}
-	write (1, previous_command, ft_strlen(previous_command));
-	write (1, &previous_id, 1);
+	write (1, prev_comm, ft_strlen(prev_comm));
+	write (1, &prev_id, 1);
 	write (1, "\n", 1);
 	if (joined_commands == 1)
-		previous_command = NULL;
+		prev_comm = NULL;
 	else
-		previous_command = command;
-	return (previous_command);
+		prev_comm = comm;
+	return (prev_comm);
 }

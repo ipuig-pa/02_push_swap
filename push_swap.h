@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 11:26:21 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:32:00 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ t_stack	*parse_in_stack(int argc, int *arr);
 t_stack	*assign_index(t_stack *stack);
 void	sort_stack_a(t_stack **st_a);
 void	small_size_sort(int size, t_stack **st_a);
+void	big_size_sort(int size, t_stack **st_a);
 t_stack	**move_to_b(int size, t_stack **st_a, t_stack **st_b);
 void	back_to_a(int size, t_stack **st_a, t_stack **st_b);
-void	exec_and_print(char *command, char stack_id, t_stack **st_a, t_stack **st_b);
-char	*print_command (char *previous_command, char *command, char previous_id, char stack_id);
-void	big_size_sort(int size, t_stack **st_a);
+void	exec_and_print(char *comm, char st_id, t_stack **st_a, t_stack **st_b);
+char	*print(char *prev_comm, char *comm, char prev_id, char st_id);
+
+
 
 void	swap(t_stack **stack);
 void	push(t_stack **stack_source, t_stack **stack_destination);
