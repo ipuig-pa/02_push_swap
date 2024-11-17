@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 10:30:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 12:39:04 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:07:44 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <limits.h>
 # include <stdio.h>
 # include "libft/libft.h"
+# include "libft/ft_printf.h"
+# include "libft/get_next_line.h"
 
 typedef struct s_stack
 {
@@ -60,9 +62,9 @@ int		is_order(t_stack *stack);
 t_stack	*clear_stack(t_stack *stack);
 
 int		push_swap(int argc, char **argv);
-int		read_and_exec(t_stack **st_a, t_stack **st_b);
-int		exec(char *comm, char st_id, t_stack **st_a, t_stack **st_b);
-void	checker(t_stack **st_a, t_stack **st_b);
-void	exit_and_print(int result, t_stack **st_a, t_stack **st_b);
+// int		read_and_exec(t_stack **st_a, t_stack **st_b);
+// int		exec(char *comm, char st_id, t_stack **st_a, t_stack **st_b);
+// void	checker(t_stack **st_a, t_stack **st_b);
+// void	exit_and_print(int result, t_stack **st_a, t_stack **st_b);
 
 #endif
