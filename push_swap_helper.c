@@ -6,41 +6,36 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/08 17:35:58 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:37:29 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	display_error(void)
+int	handle_error(int flag, char **argv, int *arr, int argc)
 {
-	printf("Error\n");
-	return (1);
+	if (flag == 1)
+		free_double_pointer(argv);
+	if (arr)
+		free(arr);
+	if (argc >= 2)
+	{
+		printf("Error\n");
+		return (1);
+	}
+	return (0);
 }
 
-int	create_array(int argc, char **argv, int *arr)
+int	arrlen(char **arr)
 {
-	int	i;
-	int	j;
+	int	len;
 
-	i = 0;
-	if (argc <= 2)
+	if (arr == NULL)
 		return (0);
-	while (i + 1 < argc)
-	{
-		if (!is_int(argv[i + 1]))
-			return (0);
-		arr[i] = ft_atoi(argv[i + 1]);
-		j = 0;
-		while (j < i)
-		{
-			if (arr[i] == arr[j])
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
+	len = 0;
+	while (arr[len] != NULL)
+		len++;
+	return (len);
 }
 
 int	is_int(char *str)
@@ -65,42 +60,37 @@ int	is_int(char *str)
 			return (0);
 		i++;
 	}
-	if (str[i] != '\0')
+	if (str[i] != '\0' || i == 0)
 		return (0);
 	return (1);
 }
 
-//eliminar ft_atoi d-aqui si es posa a libft
-int	ft_atoi(const char *str)
+int	is_arr_order(int *arr, int size)
 {
-	int	integer;
-	int	sign;
+	int	i;
 
-	integer = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == '+' || *str == '-')
+	i = 0;
+	while (i < size - 1)
 	{
-		if (*str == '-')
-			sign = sign * (-1);
-		str++;
+		if (arr[i] > arr[i + 1])
+			return (0);
+		i++;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		integer = integer * 10 + (*str - '0');
-		str++;
-	}
-	return (integer * sign);
+	return (1);
 }
 
-//eliminar strlen d-aqui
-size_t	ft_strlen(const char *s)
+int	ft_sqrt(int num)
 {
-	size_t	len;
+	int	i;
 
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
+	if (num < 4)
+		return (1);
+	i = 2;
+	while (i * i < num)
+	{
+		if (i * i == num)
+			return (i);
+		i++;
+	}
+	return (i);
 }

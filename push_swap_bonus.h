@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 16:37:34 by ipuig-pa         ###   ########.fr       */
+/*   Created: 2024/11/17 10:30:02 by ipuig-pa          #+#    #+#             */
+/*   Updated: 2024/11/17 13:07:44 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef PUSH_SWAP_BONUS_H
+# define PUSH_SWAP_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <stdio.h>
 # include "libft/libft.h"
+# include "libft/ft_printf.h"
+# include "libft/get_next_line.h"
 
 typedef struct s_stack
 {
@@ -53,11 +55,16 @@ int		arrlen(char **arr);
 int		is_int(char *str);
 int		is_arr_order(int *arr, int size);
 int		ft_sqrt(int num);
-void	free_double_pointer(char **str);
 t_stack	*ft_lstlast(t_stack *stack);
 int		ft_lstsize(t_stack *stack);
 int		ft_lstpos(t_stack *current, t_stack *interrogated);
 int		is_order(t_stack *stack);
 t_stack	*clear_stack(t_stack *stack);
+
+int		push_swap(int argc, char **argv);
+// int		read_and_exec(t_stack **st_a, t_stack **st_b);
+// int		exec(char *comm, char st_id, t_stack **st_a, t_stack **st_b);
+// void	checker(t_stack **st_a, t_stack **st_b);
+// void	exit_and_print(int result, t_stack **st_a, t_stack **st_b);
 
 #endif
