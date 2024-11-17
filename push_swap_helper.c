@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 15:41:02 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:15:42 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	handle_error(int flag, char **argv, int *arr, int argc)
 {
 	if (flag == 1)
-		free(argv);
+		free_double_pointer(argv);
 	if (arr)
 		free(arr);
 	if (argc >= 2)

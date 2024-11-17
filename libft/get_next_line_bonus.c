@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 18:04:00 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 12:16:40 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:19:05 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_next_line(int fd)
 {
 	char		buffer[BUFFER_SIZE + 1];
 	size_t		bytes_read;
-	static char	*left[OPEN_MAX];
+	static char	*left[256];
 	char		*line;
 
 	line = NULL;

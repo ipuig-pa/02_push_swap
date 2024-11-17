@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 11:02:50 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 12:40:11 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:33:52 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include "get_next_line_bonus.h"
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
