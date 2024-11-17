@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 10:54:23 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:41:02 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ int	handle_error(int flag, char **argv, int *arr, int argc)
 		free(argv);
 	if (arr)
 		free(arr);
-	if (argc > 2)
+	if (argc >= 2)
+	{
 		printf("Error\n");
-	return (1);
+		return (1);
+	}
+	return (0);
 }
 
 int	arrlen(char **arr)

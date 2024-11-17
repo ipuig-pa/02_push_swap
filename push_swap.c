@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:41:40 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 10:52:21 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:35:21 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int	main(int argc, char **argv)
 		clear_stack(stack_a);
 	}
 	if (flag == 1)
-		free(argv);
+		free_double_pointer(argv);
 	return (free(arr), 0);
 }

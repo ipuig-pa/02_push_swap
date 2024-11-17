@@ -9,6 +9,7 @@ SOURCES = 	push_swap.c \
 			push_swap_exec_and_print.c \
 			push_swap_commands.c \
 			push_swap_helper.c \
+			push_swap_helper_two.c \
 			push_swap_stack_tools.c
 
 BONUS_SOURCES = push_swap_checker_bonus.c \

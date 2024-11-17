@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 10:44:37 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:30:43 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		arrlen(char **arr);
 int		is_int(char *str);
 int		is_arr_order(int *arr, int size);
 int		ft_sqrt(int num);
+void	free_double_pointer(char **str);
 t_stack	*ft_lstlast(t_stack *stack);
 int		ft_lstsize(t_stack *stack);
 int		ft_lstpos(t_stack *current, t_stack *interrogated);
