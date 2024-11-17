@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 18:05:38 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 12:52:34 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:10:35 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ size_t	len(char *str)
 		len++;
 	return (len);
 }
-
 
 size_t	newline(char *str)
 {

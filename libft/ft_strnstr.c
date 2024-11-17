@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 16:19:37 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 12:16:43 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:10:17 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,3 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	}
 	return (NULL);
 }
-
-/*#include <string.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	char	*hay = NULL;
-	char	ne[] = "fake";
-	size_t	len = 3;
-
-	printf("you: %p, strnstr: %p", ft_strnstr(hay, ne, len), strnstr(hay, ne, len));
-	return (0);
-}*/
