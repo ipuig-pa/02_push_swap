@@ -6,72 +6,52 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:10:03 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 16:37:22 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:47:39 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap(int *stack)
+void	swap(t_stack **stack)
 {
-	int	temp;
+	t_stack	*temp;
 
-	temp = stack[0];
-	stack[0] = stack[1];
-	stack[1] = temp;
+	temp = (*stack)->next;
+	(*stack)->next = (*stack)->next->next;
+	temp->next = *stack;
+	*stack = temp;
 }
 
-void	push(int *stack_destination, int *stack_source, int d_size, int s_size)
+void	push(t_stack **stack_destination, t_stack **stack_source)
 {
-	if (d_size != 0)
-		push_index(stack_destination, '+', d_size + 1);
-	stack_destination[0] = stack_source[0];
-	if (s_size - 1 != 0)
-		push_index(stack_source, '-', s_size);
+	t_stack	*temp;
+
+	temp = *stack_source;
+	*stack_source = (*stack_source)->next;
+	temp->next = *stack_destination;
+	*stack_destination = temp;
 }
 
-void	rotate(int *stack, int size)
+void	rotate(t_stack **stack)
 {
-	int	temp;
+	t_stack	*temp;
 
-	temp = stack[0];
-	push_index(stack, '-', size);
-	stack[size - 1] = temp;
+	temp = *stack;
+	*stack = temp->next;
+	temp->next = NULL;
+	ft_lstlast(*stack)->next = temp;
 }
 
-void	reverse_rotate(int *stack, int size)
+void	reverse_rotate(t_stack **stack)
 {
-	int	temp;
+	t_stack	*temp;
+	t_stack	*current;
 
-	temp = stack[size - 1];
-	push_index(stack, '+', size);
-	stack[0] = temp;
-}
-
-void	push_index(int *stack, char c, int size)
-{
-	int	previous;
-	int	following;
-	int	i;
-
-	i = 0;
-	if (c == '+')
-	{
-		previous = stack[i];
-		while (i < size - 1)
-		{
-			following = stack[i + 1];
-			stack[i + 1] = previous;
-			previous = following;
-			i++;
-		}
-	}
-	else
-	{
-		while (i < size - 1)
-		{
-			stack[i] = stack[i + 1];
-			i++;
-		}
-	}
+	temp = *stack;
+	current = *stack;
+	while (current->next->next != NULL)
+		current = current->next;
+	*stack = current->next;
+	current->next = NULL;
+	(*stack)->next = temp;
 }
