@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 10:26:32 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 10:53:47 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	is_int(char *str)
 			return (0);
 		i++;
 	}
-	if (str[i] != '\0')
+	if (str[i] != '\0' || i == 0)
 		return (0);
 	return (1);
 }

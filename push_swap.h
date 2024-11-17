@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 10:23:16 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 10:44:37 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_stack
 
 int		main(int argc, char **argv);
 
-int		valid_input_to_arr(int count, char **argv, int *arr);
+int		valid_input_to_arr(int count, char **argv, int *arr, int flag);
 t_stack	*parse_in_stack(int argc, int *arr);
 t_stack	*assign_index(t_stack *stack);
 

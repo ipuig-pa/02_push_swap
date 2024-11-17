@@ -6,13 +6,13 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:40:30 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 10:27:54 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 10:51:22 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	valid_input_to_arr(int count, char **argv, int *arr)
+int	valid_input_to_arr(int count, char **argv, int *arr, int flag)
 {
 	int	i;
 	int	j;
@@ -22,9 +22,9 @@ int	valid_input_to_arr(int count, char **argv, int *arr)
 		return (0);
 	while (i + 1 < count)
 	{
-		if (!is_int(argv[i + 1]))
+		if (!is_int(argv[i + 1 - flag]))
 			return (0);
-		arr[i] = ft_atoi(argv[i + 1]);
+		arr[i] = ft_atoi(argv[i + 1 - flag]);
 		j = 0;
 		while (j < i)
 		{
