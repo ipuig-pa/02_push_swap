@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:37:53 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 16:48:53 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:14:07 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sort_stack_a(t_stack **st_a)
 	size = ft_lstsize(*st_a);
 	if (size <= 3)
 		small_size_sort(size, st_a);
-	else if (size <= 8)
+	else if (size <= 10)
 		middle_size_sort(size, st_a);
 	else
 		big_size_sort(size, st_a);
