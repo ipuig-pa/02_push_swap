@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:06:02 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 16:48:25 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 10:23:16 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	push(t_stack **stack_destination, t_stack **stack_source);
 void	rotate(t_stack **stack);
 void	reverse_rotate(t_stack **stack);
 
-int		handle_error(int flag, char **argv, int *arr);
+int		handle_error(int flag, char **argv, int *arr, int argc);
 int		arrlen(char **arr);
 int		is_int(char *str);
 int		is_arr_order(int *arr, int size);

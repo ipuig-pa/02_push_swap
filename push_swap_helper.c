@@ -6,19 +6,20 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:35:26 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 13:58:23 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 10:26:32 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	handle_error(int flag, char **argv, int *arr)
+int	handle_error(int flag, char **argv, int *arr, int argc)
 {
 	if (flag == 1)
 		free(argv);
 	if (arr)
 		free(arr);
-	printf("Error\n");
+	if (argc > 2)
+		printf("Error\n");
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:40:30 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 13:58:25 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/17 10:27:54 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	valid_input_to_arr(int count, char **argv, int *arr)
 	int	j;
 
 	i = 0;
-	if (count <= 1)
+	if (count <= 2)
 		return (0);
 	while (i + 1 < count)
 	{
