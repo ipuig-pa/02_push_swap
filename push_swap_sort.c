@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:37:53 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/17 13:14:07 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:36:51 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	middle_size_sort(int size, t_stack **st_a)
 	while (size > 3 && !is_order(*st_a))
 	{
 		prepare_push(st_a, &st_b, i, 'a');
-		exec_and_print("p", 'b', st_a, &st_b);
+		if (!is_order(*st_a))
+			exec_and_print("p", 'b', st_a, &st_b);
 		size--;
 		i++;
 	}

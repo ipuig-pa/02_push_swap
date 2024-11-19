@@ -6,7 +6,7 @@
 /*   By: ipuig-pa <ipuig-pa@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:45:47 by ipuig-pa          #+#    #+#             */
-/*   Updated: 2024/11/16 16:48:06 by ipuig-pa         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:36:31 by ipuig-pa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*print(char *prev_comm, char *comm, char prev_id, char st_id)
 	if (!prev_comm || prev_comm[0] == 'l')
 		return (comm);
 	joined_commands = 0;
-	if (prev_comm == comm)
+	if (prev_comm == comm && comm[0] != 'p')
 	{
 		if (st_id != prev_id)
 		{
