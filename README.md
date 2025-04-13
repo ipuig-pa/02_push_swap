@@ -8,7 +8,7 @@ This project was developed individually by:
 
 ---
 
-This project involves sorting a random amount of numbers on a stack with a limited set of instructions, aiming to use the lowest possible number of actions. 
+This project involves sorting a random amount of numbers on a stack with a limited set of instructions, aiming to use the lowest possible number of actions and supporting on another, initially empty, stack.  
 
 ### Resources
 
